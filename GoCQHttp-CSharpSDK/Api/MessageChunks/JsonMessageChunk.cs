@@ -19,5 +19,10 @@ namespace Ilyfairy.Robot.CSharpSdk.Api.MessageChunks
             this.Type = CQCode.none;
         }
         public string Json { get; set; }
+
+        public override string ToString()
+        {
+            return Json;
+        }
     }
 }

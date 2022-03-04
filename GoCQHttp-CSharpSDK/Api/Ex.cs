@@ -18,6 +18,7 @@ namespace Ilyfairy.Robot.CSharpSdk.Api
             }
             return s.ToString();
         }
+
         public static string ToText(this IEnumerable<MessageChunk> chunks)
         {
             StringBuilder s = new();

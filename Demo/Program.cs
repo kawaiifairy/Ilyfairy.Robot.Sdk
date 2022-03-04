@@ -1,7 +1,4 @@
-﻿using Flurl.Util;
-using Ilyfairy.Robot.CSharpSdk;
-using Ilyfairy.Robot.CSharpSdk.Api;
-using Ilyfairy.Robot.CSharpSdk.Api.MessageChunks;
+﻿using Ilyfairy.Robot.CSharpSdk;
 using Ilyfairy.Robot.CSharpSdk.Api.MessageContent;
 
 class Program
@@ -29,7 +26,7 @@ class Program
     static void Robot_GroupMessageReceivedEvent(object? sender, GroupMessage e)
     {
         Console.WriteLine($"收到群消息: {e.Text}");
-        Robot.Api.SendGroupMessage(437973467, e.Text,true);
+        Robot.Api.SendGroupMessage(437973467, e.Text, true);
     }
     static void Robot_PrivateMessageReceivedEvent(object? sender, PrivateMessage e)
     {
