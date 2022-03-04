@@ -25,11 +25,10 @@ class Program
     }
     static void Robot_GroupMessageReceivedEvent(object? sender, GroupMessage e)
     {
-        Console.WriteLine($"收到群消息: {e.Text}");
-        Robot.Api.SendGroupMessage(437973467, e.Text, true);
+        Robot.Api.SendGroupMessage(e.GroupId, e.OriginText, false);
     }
     static void Robot_PrivateMessageReceivedEvent(object? sender, PrivateMessage e)
     {
-        //Robot.Api.SendPrivateMessage(2711521586, null, e.Text, false);
+        Robot.Api.SendPrivateMessage(e.Sender.QQ, e.OriginText, false);
     }
 }
