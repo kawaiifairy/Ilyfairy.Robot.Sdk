@@ -1,5 +1,8 @@
-﻿namespace Ilyfairy.Robot.CSharpSdk.Api.MessageContent
+﻿namespace Ilyfairy.Robot.Sdk.Api.MessageContent
 {
+    /// <summary>
+    /// 消息类型
+    /// </summary>
     public enum MessageType
     {
         /// <summary>

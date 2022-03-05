@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 
-namespace Ilyfairy.Robot.CSharpSdk.Api.MessageChunks
+namespace Ilyfairy.Robot.Sdk.Api.MessageChunks
 {
     public abstract class MessageChunk
     {

@@ -1,7 +1,10 @@
-﻿using Ilyfairy.Robot.CSharpSdk.Api.MessageChunks;
+﻿using Ilyfairy.Robot.Sdk.Api.MessageChunks;
 
-namespace Ilyfairy.Robot.CSharpSdk.Api.MessageContent
+namespace Ilyfairy.Robot.Sdk.Api.MessageContent
 {
+    /// <summary>
+    /// QQ消息基类
+    /// </summary>
     public class MessageBase
     {
         /// <summary>

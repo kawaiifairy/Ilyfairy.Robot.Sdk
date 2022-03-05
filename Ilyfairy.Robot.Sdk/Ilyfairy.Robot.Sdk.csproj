@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>Ilyfairy.Robot.CSharpSdk</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <PackageProjectUrl>https://github.com/kawaiifairy/Ilyfairy.Robot.Sdk</PackageProjectUrl>
+    <Copyright>©2022 ilyfairy</Copyright>
+    <Authors>ilyfairy</Authors>
+    <PackageId>Ilyfairy.Robot.Sdk</PackageId>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    <RepositoryUrl>https://github.com/kawaiifairy/Ilyfairy.Robot.Sdk</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Description>go-cqhttp SDK</Description>
+    <Version>1.0.4</Version>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Flurl.Http" Version="3.2.2" />
+    <PackageReference Include="Websocket.Client" Version="4.4.43" />
+  </ItemGroup>
+
+</Project>

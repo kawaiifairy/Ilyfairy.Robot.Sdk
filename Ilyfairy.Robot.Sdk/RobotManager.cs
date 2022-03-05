@@ -1,12 +1,12 @@
-﻿using Ilyfairy.Robot.CSharpSdk.Api;
-using Ilyfairy.Robot.CSharpSdk.Api.MessageChunks;
-using Ilyfairy.Robot.CSharpSdk.Api.MessageContent;
+﻿using Ilyfairy.Robot.Sdk.Api;
+using Ilyfairy.Robot.Sdk.Api.MessageChunks;
+using Ilyfairy.Robot.Sdk.Api.MessageContent;
 using Newtonsoft.Json.Linq;
 using System.Net;
 using System.Text;
 using Websocket.Client;
 
-namespace Ilyfairy.Robot.CSharpSdk
+namespace Ilyfairy.Robot.Sdk
 {
     public class RobotManager
     {
@@ -34,6 +34,7 @@ namespace Ilyfairy.Robot.CSharpSdk
             WsClient.DisconnectionHappened.Subscribe(x =>
             {
                 msg = x.Type;
+                Console.WriteLine($"TYPE = {x.Type}");
             });
             WsClient.MessageReceived.Subscribe((message) =>
             {
@@ -86,7 +87,7 @@ namespace Ilyfairy.Robot.CSharpSdk
         {
             if (json.Value<string>("sub_type") == "connect")
             {
-                
+
             }
 
         }
@@ -100,14 +101,15 @@ namespace Ilyfairy.Robot.CSharpSdk
             var message = json.Value<string>("message");
 
             var messageChunks = MessageChunkProc(json);
+            var sender = SenderProc(json);
 
             switch (type)
             {
                 case "group": //群消息
-                    GroupMessageProc(json, messageChunks);
+                    GroupMessageProc(json, messageChunks, sender);
                     break;
                 case "private": //私聊消息
-                    PrivateMessageProc(json, messageChunks);
+                    PrivateMessageProc(json, messageChunks, sender);
                     break;
                 default:
                     Console.WriteLine($"未知消息类型: {type}");
@@ -116,15 +118,40 @@ namespace Ilyfairy.Robot.CSharpSdk
         }
 
         /// <summary>
+        /// 发送者处理
+        /// </summary>
+        /// <param name="json"></param>
+        /// <returns></returns>
+        private MessageSender SenderProc(JObject json)
+        {
+            Console.WriteLine(json);
+
+            var sender = json["sender"];
+            if (sender == null) return null;
+            var obj = new MessageSender();
+
+            obj.QQ = sender.Value<long>("user_id");
+            obj.CardName = sender.Value<string>("card");
+            obj.Name = sender.Value<string>("nickname");
+            obj.Age = sender.Value<int>("age");
+            obj.Sex = sender.Value<string>("sex");
+
+            return obj;
+        }
+
+        /// <summary>
         /// 群消息处理
         /// </summary>
         /// <param name="json"></param>
         /// <param name="messageChunks"></param>
-        private void GroupMessageProc(JObject json,IEnumerable<MessageChunk> messageChunks)
+        private void GroupMessageProc(JObject json, IEnumerable<MessageChunk> messageChunks,MessageSender sender)
         {
-            GroupMessageReceivedEvent?.Invoke(this, new GroupMessage
+            var groupId = json.Value<long>("group_id");
+            GroupMessageReceivedEvent?.Invoke(this, new GroupMessage(new Lazy<GroupInfo>(() => Api.GetGroupInfo(groupId)))
             {
-                MessageChunks = messageChunks
+                MessageChunks = messageChunks,
+                Sender = sender,
+                GroupId = groupId,
             });
         }
         /// <summary>
@@ -132,11 +159,12 @@ namespace Ilyfairy.Robot.CSharpSdk
         /// </summary>
         /// <param name="json"></param>
         /// <param name="messageChunks"></param>
-        private void PrivateMessageProc(JObject json, IEnumerable<MessageChunk> messageChunks)
+        private void PrivateMessageProc(JObject json, IEnumerable<MessageChunk> messageChunks, MessageSender sender)
         {
             PrivateMessageReceivedEvent?.Invoke(this, new PrivateMessage
             {
-                MessageChunks = messageChunks
+                MessageChunks = messageChunks,
+                Sender = sender,
             });
         }
 
@@ -200,17 +228,18 @@ namespace Ilyfairy.Robot.CSharpSdk
                 MessageChunk obj = null;
                 Dictionary<string, string> property = new();
                 var originText = $"[{chunk.msg}]";
+                var split = chunk.msg.Split(',');
 
-                foreach (var key in chunk.msg.Split(','))
+                foreach (var key in split)
                 {
                     if (key.StartsWith("CQ:"))
                     {
                         code = Enum.Parse<CQCode>(key[3..], true);
                     }
                     var keyValue = key.Split('=');
-                    if (keyValue.Length == 2)
+                    if (keyValue.Length >= 2)
                     {
-                        property.Add(keyValue[0], keyValue[1]);
+                        property.Add(keyValue[0], string.Join("=", keyValue.Skip(1)));
                     }
                 }
 
@@ -233,6 +262,13 @@ namespace Ilyfairy.Robot.CSharpSdk
                         
                         break;
                     case CQCode.video:
+                        obj = new VideoMessageChunk()
+                        {
+                            OriginText = originText,
+                            Type = code,
+                            File = property["file"],
+                            Url = property["url"],
+                        };
                         break;
                     case CQCode.at:
                         obj = new AtMessageChunk()
@@ -263,10 +299,10 @@ namespace Ilyfairy.Robot.CSharpSdk
                         obj = new ImageMessageChunk()
                         {
                             OriginText = originText,
-                            Url = property["file"],
-                            SubType = subType != null ? int.Parse(subType) : null,
                             Type = code,
                             File = property["file"],
+                            Url = property["url"],
+                            SubType = subType != null ? int.Parse(subType) : null,
                         };
                         break;
                     case CQCode.reply:

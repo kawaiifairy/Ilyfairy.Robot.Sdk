@@ -1,4 +1,4 @@
-﻿namespace Ilyfairy.Robot.CSharpSdk
+﻿namespace Ilyfairy.Robot.Sdk
 {
     /// <summary>
     /// CQ码

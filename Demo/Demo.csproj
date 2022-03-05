@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GoCQHttp-CSharpSDK\GoCQHttp-CSharpSDK.csproj" />
+    <ProjectReference Include="..\Ilyfairy.Robot.Sdk\Ilyfairy.Robot.Sdk.csproj" />
   </ItemGroup>
 
 </Project>

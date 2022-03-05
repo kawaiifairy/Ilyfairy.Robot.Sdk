@@ -1,4 +1,4 @@
-﻿namespace Ilyfairy.Robot.CSharpSdk.Api.MessageChunks
+﻿namespace Ilyfairy.Robot.Sdk.Api.MessageChunks
 {
     public class FaceMessageChunk : MessageChunk
     {

@@ -1,11 +1,7 @@
-﻿using Ilyfairy.Robot.CSharpSdk.Api.MessageChunks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Ilyfairy.Robot.Sdk.Api.MessageChunks;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Ilyfairy.Robot.CSharpSdk.Api
+namespace Ilyfairy.Robot.Sdk.Api
 {
     public static class Ex
     {

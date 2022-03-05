@@ -1,5 +1,7 @@
-﻿using Ilyfairy.Robot.CSharpSdk;
-using Ilyfairy.Robot.CSharpSdk.Api.MessageContent;
+﻿using Ilyfairy.Robot.Sdk;
+using Ilyfairy.Robot.Sdk.Api.MessageContent;
+using System.Net.Sockets;
+using System.Text.RegularExpressions;
 
 class Program
 {
@@ -21,14 +23,25 @@ class Program
             return;
         }
 
-        Thread.Sleep(1000000);
+        Thread.Sleep(-1);
     }
+
     static void Robot_GroupMessageReceivedEvent(object? sender, GroupMessage e)
     {
-        Robot.Api.SendGroupMessage(e.GroupId, e.OriginText, false);
+        //Console.WriteLine($"[{e.Sender.Name} ({e.Sender.QQ})]: {e.OriginText}");
+        Console.WriteLine(e.GroupId);
+        Console.WriteLine(e.Group.Name);
+
+        return;
+        var match = Regex.Match(e.Text, @"^echo\s*(?<msg>.*)$");
+        if (match.Success)
+        {
+            //Robot.Api.SendGroupMessage(e.GroupId, match.Groups["msg"].Value, false);
+        }
     }
+
     static void Robot_PrivateMessageReceivedEvent(object? sender, PrivateMessage e)
     {
-        Robot.Api.SendPrivateMessage(e.Sender.QQ, e.OriginText, false);
+
     }
 }
