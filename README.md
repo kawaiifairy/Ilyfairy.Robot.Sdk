@@ -27,22 +27,35 @@ class Program
 
         // 绑定事件
         Robot.GroupMessageReceivedEvent += Robot_GroupMessageReceivedEvent;
-        Robot.ConnectEvent += (sender, e) =>
-        {
-            if (e == ConnectType.Success) Console.WriteLine("连接成功");
-        };
-
+        Robot.ConnectEvent += Robot_ConnectEvent;
         // 开始连接!
         Robot.Connect();
 
         Thread.Sleep(-1);
     }
 
+    //连接事件
+    private static void Robot_ConnectEvent(object? sender, ConnectType e)
+    {
+        switch (e)
+        {
+            case ConnectType.Success:
+                Console.WriteLine("连接成功");
+                break;
+            case ConnectType.Lost:
+                break;
+            case ConnectType.Error:
+                break;
+            default:
+                break;
+        }
+    }
+
     // 群消息事件
     static void Robot_GroupMessageReceivedEvent(object? sender, GroupMessage e)
     {
         //复读机
-        var match = Regex.Match(e.Text, @"^echo\s*(?<msg>.*)$");
+        var match = Regex.Match(e.Text, @"^echo\s*(?<msg>(?:.|\n)*)$");
         if (match.Success)
         {
             Robot.Api.SendGroupMessage(e.GroupId, match.Groups["msg"].Value, false);
