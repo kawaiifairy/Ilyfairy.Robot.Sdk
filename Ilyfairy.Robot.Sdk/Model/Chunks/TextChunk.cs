@@ -1,12 +1,12 @@
 ﻿namespace Ilyfairy.Robot.Sdk.Model.Chunks
 {
-    public class TextMessageChunk : MessageChunk
+    public class TextChunk : MessageChunk
     {
-        public TextMessageChunk()
+        public TextChunk()
         {
 
         }
-        public TextMessageChunk(string text)
+        public TextChunk(string text)
         {
             this.Text = text;
             this.OriginText = text.Replace("&", "&amp;").Replace("[", "&#91;").Replace("]", "&#93;");

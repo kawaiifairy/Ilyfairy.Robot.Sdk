@@ -1,6 +1,6 @@
 ﻿namespace Ilyfairy.Robot.Sdk.Model.Chunks
 {
-    public class FaceMessageChunk : MessageChunk
+    public class FaceChunk : MessageChunk
     {
         public int Face { get; set; }
     }

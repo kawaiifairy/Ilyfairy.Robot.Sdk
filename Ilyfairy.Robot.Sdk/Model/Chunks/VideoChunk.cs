@@ -6,8 +6,12 @@ using System.Threading.Tasks;
 
 namespace Ilyfairy.Robot.Sdk.Model.Chunks
 {
-    public class ReplyMessageChunk : MessageChunk
+    /// <summary>
+    /// AtQQ
+    /// </summary>
+    public class VideoChunk : MessageChunk
     {
-        public long ReplyId { get; set; }
+        public string File { get; set; }
+        public string Url { get; set; }
     }
 }

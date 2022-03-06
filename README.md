@@ -10,7 +10,7 @@ Ilyfairy.Robot.Sdk
 
 
 
-### Demo
+### 如何使用
 
 ```c#
 using Ilyfairy.Robot.Sdk.Connect;
@@ -32,7 +32,7 @@ class Program
             if (e == ConnectType.Success) Console.WriteLine("连接成功");
         };
 
-        //开始连接!
+        // 开始连接!
         Robot.Connect();
 
         Thread.Sleep(-1);

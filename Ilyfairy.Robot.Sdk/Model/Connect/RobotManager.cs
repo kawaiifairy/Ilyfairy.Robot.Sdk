@@ -17,7 +17,6 @@ namespace Ilyfairy.Robot.Sdk.Connect
         public Uri HttpAddress { get; }
         public WebsocketClient WsClient { get; set; }
         public RobotApi Api { get; private set; }
-        //public bool IsConnect { get; set; }
 
         public RobotManager(string wsUri, string httpUri)
         {
@@ -110,6 +109,7 @@ namespace Ilyfairy.Robot.Sdk.Connect
                     break;
             }
         }
+
         /// <summary>
         /// 元消息处理
         /// </summary>
@@ -175,43 +175,13 @@ namespace Ilyfairy.Robot.Sdk.Connect
 
             return obj;
         }
-
-        /// <summary>
-        /// 群消息处理
-        /// </summary>
-        /// <param name="json"></param>
-        /// <param name="messageChunks"></param>
-        private void GroupMessageProc(JObject json, IEnumerable<MessageChunk> messageChunks, MessageSender sender)
-        {
-            var groupId = json.Value<long>("group_id");
-            GroupMessageReceivedEvent?.Invoke(this, new GroupMessage(new Lazy<GroupInfo>(() => Api.GetGroupInfo(groupId)))
-            {
-                MessageChunks = messageChunks,
-                Sender = sender,
-                GroupId = groupId,
-            });
-        }
-        /// <summary>
-        /// 私聊消息处理
-        /// </summary>
-        /// <param name="json"></param>
-        /// <param name="messageChunks"></param>
-        private void PrivateMessageProc(JObject json, IEnumerable<MessageChunk> messageChunks, MessageSender sender)
-        {
-            PrivateMessageReceivedEvent?.Invoke(this, new PrivateMessage
-            {
-                MessageChunks = messageChunks,
-                Sender = sender,
-            });
-        }
-
         /// <summary>
         /// 消息块处理
         /// </summary>
         /// <param name="originMessageJson"></param>
         /// <returns></returns>
         /// <exception cref="Exception"></exception>
-        public IEnumerable<MessageChunk> MessageChunkProc(JObject originMessageJson)
+        private IEnumerable<MessageChunk> MessageChunkProc(JObject originMessageJson)
         {
             List<(string msg, bool isCQ)> originChunks = new();
             StringBuilder s = new();
@@ -252,7 +222,7 @@ namespace Ilyfairy.Robot.Sdk.Connect
                         ] = &#93;
                     */
                     var text = chunk.msg.Replace("&amp;", "&").Replace("&#91;", "[").Replace("&#93;", "]");
-                    yield return new TextMessageChunk()
+                    yield return new TextChunk()
                     {
                         OriginText = chunk.msg,
                         Type = CQCode.none,
@@ -288,7 +258,7 @@ namespace Ilyfairy.Robot.Sdk.Connect
 #endif
                         break;
                     case CQCode.face:
-                        obj = new FaceMessageChunk()
+                        obj = new FaceChunk()
                         {
                             OriginText = originText,
                             Type = code,
@@ -299,7 +269,7 @@ namespace Ilyfairy.Robot.Sdk.Connect
 
                         break;
                     case CQCode.video:
-                        obj = new VideoMessageChunk()
+                        obj = new VideoChunk()
                         {
                             OriginText = originText,
                             Type = code,
@@ -308,7 +278,7 @@ namespace Ilyfairy.Robot.Sdk.Connect
                         };
                         break;
                     case CQCode.at:
-                        obj = new AtMessageChunk()
+                        obj = new AtChunk()
                         {
                             OriginText = originText,
                             Type = code,
@@ -333,7 +303,7 @@ namespace Ilyfairy.Robot.Sdk.Connect
                         break;
                     case CQCode.image:
                         property.TryGetValue("subType", out var subType);
-                        obj = new ImageMessageChunk()
+                        obj = new ImageChunk()
                         {
                             OriginText = originText,
                             Type = code,
@@ -343,7 +313,7 @@ namespace Ilyfairy.Robot.Sdk.Connect
                         };
                         break;
                     case CQCode.reply:
-                        obj = new ReplyMessageChunk()
+                        obj = new ReplyChunk()
                         {
                             OriginText = originText,
                             Type = code,
@@ -363,7 +333,7 @@ namespace Ilyfairy.Robot.Sdk.Connect
                     case CQCode.xml:
                         break;
                     case CQCode.json:
-                        obj = new JsonMessageChunk()
+                        obj = new JsonChunk()
                         {
                             OriginText = originText,
                             Type = code,
@@ -385,6 +355,35 @@ namespace Ilyfairy.Robot.Sdk.Connect
                 }
                 yield return obj;
             }
+        }
+
+        /// <summary>
+        /// 群消息处理
+        /// </summary>
+        /// <param name="json"></param>
+        /// <param name="messageChunks"></param>
+        private void GroupMessageProc(JObject json, IEnumerable<MessageChunk> messageChunks, MessageSender sender)
+        {
+            var groupId = json.Value<long>("group_id");
+            GroupMessageReceivedEvent?.Invoke(this, new GroupMessage(new Lazy<GroupInfo>(() => Api.GetGroupInfo(groupId)))
+            {
+                MessageChunks = messageChunks,
+                Sender = sender,
+                GroupId = groupId,
+            });
+        }
+        /// <summary>
+        /// 私聊消息处理
+        /// </summary>
+        /// <param name="json"></param>
+        /// <param name="messageChunks"></param>
+        private void PrivateMessageProc(JObject json, IEnumerable<MessageChunk> messageChunks, MessageSender sender)
+        {
+            PrivateMessageReceivedEvent?.Invoke(this, new PrivateMessage
+            {
+                MessageChunks = messageChunks,
+                Sender = sender,
+            });
         }
 
         /// <summary>

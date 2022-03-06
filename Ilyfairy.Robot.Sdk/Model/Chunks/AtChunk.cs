@@ -9,9 +9,8 @@ namespace Ilyfairy.Robot.Sdk.Model.Chunks
     /// <summary>
     /// AtQQ
     /// </summary>
-    public class VideoMessageChunk : MessageChunk
+    public class AtChunk : MessageChunk
     {
-        public string File { get; set; }
-        public string Url { get; set; }
+        public long AtQQ { get; set; }
     }
 }

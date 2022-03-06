@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Ilyfairy.Robot.Sdk.Model.Chunks
 {
-    public class JsonMessageChunk : MessageChunk
+    public class JsonChunk : MessageChunk
     {
-        public JsonMessageChunk()
+        public JsonChunk()
         {
 
         }
-        public JsonMessageChunk(string json)
+        public JsonChunk(string json)
         {
             this.Json = json;
             this.OriginText = $"[CQ:json,data={json}]";
