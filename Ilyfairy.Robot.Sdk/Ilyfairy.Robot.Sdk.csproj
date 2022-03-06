@@ -14,7 +14,7 @@
     <RepositoryUrl>https://github.com/kawaiifairy/Ilyfairy.Robot.Sdk</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Description>go-cqhttp SDK</Description>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 

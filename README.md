@@ -13,43 +13,42 @@ Ilyfairy.Robot.Sdk
 ### Demo
 
 ```c#
+using Ilyfairy.Robot.Sdk.Connect;
+using Ilyfairy.Robot.Sdk.Model.Content;
+using System.Text.RegularExpressions;
+
 class Program
 {
     static RobotManager Robot;
     static void Main(string[] args)
     {
-        //new Robot新实例  参数为ws地址, http地址
+        // 初始化Robot新实例
         Robot = new("ws://127.0.0.1:6700", "http://127.0.0.1:5700");
 
-        //绑定消息事件
-        Robot.PrivateMessageReceivedEvent += Robot_PrivateMessageReceivedEvent;
+        // 绑定事件
         Robot.GroupMessageReceivedEvent += Robot_GroupMessageReceivedEvent;
+        Robot.ConnectEvent += (sender, e) =>
+        {
+            if (e == ConnectType.Success) Console.WriteLine("连接成功");
+        };
 
         //开始连接!
-        if (Robot.Connect())
-        {
-            Console.WriteLine("连接成功");
-        }
-        else
-        {
-            Console.WriteLine("连接失败");
-            return;
-        }
+        Robot.Connect();
 
-        Thread.Sleep(1000000);
+        Thread.Sleep(-1);
     }
-    
-    //复读机
+
+    // 群消息事件
     static void Robot_GroupMessageReceivedEvent(object? sender, GroupMessage e)
     {
-        // 发送群消息
-        Robot.Api.SendGroupMessage(e.GroupId, e.OriginText, false);
+        //复读机
+        var match = Regex.Match(e.Text, @"^echo\s*(?<msg>.*)$");
+        if (match.Success)
+        {
+            Robot.Api.SendGroupMessage(e.GroupId, match.Groups["msg"].Value, false);
+        }
     }
-    static void Robot_PrivateMessageReceivedEvent(object? sender, PrivateMessage e)
-    {
-        // 发送私聊消息
-        Robot.Api.SendPrivateMessage(e.Sender.QQ, e.OriginText, false);
-    }
+
 }
 ```
 
