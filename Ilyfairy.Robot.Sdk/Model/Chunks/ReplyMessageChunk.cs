@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ilyfairy.Robot.Sdk.Api.MessageChunks
+namespace Ilyfairy.Robot.Sdk.Model.Chunks
 {
     public class ReplyMessageChunk : MessageChunk
     {

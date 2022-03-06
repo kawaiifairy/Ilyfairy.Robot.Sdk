@@ -1,12 +1,15 @@
 ﻿using Ilyfairy.Robot.Sdk.Api;
-using Ilyfairy.Robot.Sdk.Api.MessageChunks;
-using Ilyfairy.Robot.Sdk.Api.MessageContent;
 using Newtonsoft.Json.Linq;
+using System.Diagnostics;
 using System.Net;
 using System.Text;
 using Websocket.Client;
+using Ilyfairy.Robot.Sdk.Model.Chunks;
+using Ilyfairy.Robot.Sdk.Model.Content;
+using Ilyfairy.Robot.Sdk.Model;
+using Ilyfairy.Robot.Sdk.Api.Debug;
 
-namespace Ilyfairy.Robot.Sdk
+namespace Ilyfairy.Robot.Sdk.Connect
 {
     public class RobotManager
     {
@@ -14,6 +17,7 @@ namespace Ilyfairy.Robot.Sdk
         public Uri HttpAddress { get; }
         public WebsocketClient WsClient { get; set; }
         public RobotApi Api { get; private set; }
+        //public bool IsConnect { get; set; }
 
         public RobotManager(string wsUri, string httpUri)
         {
@@ -21,38 +25,59 @@ namespace Ilyfairy.Robot.Sdk
             HttpAddress = new Uri(httpUri);
         }
 
-        /// <summary>
-        /// 连接
-        /// </summary>
-        /// <returns></returns>
-        public bool Connect()
+        private void Init()
         {
             DisconnectionType? msg = null;
             WsClient?.Dispose();
             WsClient = new(WsAddress);
 
-            WsClient.DisconnectionHappened.Subscribe(x =>
+            WsClient.ErrorReconnectTimeout = TimeSpan.FromSeconds(10);
+            // 断开连接发生
+            WsClient.DisconnectionHappened.Subscribe(msg =>
             {
-                msg = x.Type;
-                Console.WriteLine($"TYPE = {x.Type}");
+                //Cs.Crate($"[{DateTime.Now:G}] [WARNING] Disconnection: TYPE is {msg.Type}\n", ConsoleColor.DarkYellow).Show();
+                if (msg.Type == DisconnectionType.Lost)
+                {
+                    ConnectEvent?.Invoke(this, ConnectType.Lost);
+                    //Console.WriteLine("连接断开");
+                }
+                else
+                {
+                    ConnectEvent?.Invoke(this, ConnectType.Error);
+                }
+                //ConnectEvent?.Invoke(this, false);
             });
+            // 重新连接发生
+            WsClient.ReconnectionHappened.Subscribe(msg =>
+            {
+                if (msg.Type == ReconnectionType.Initial)
+                {
+                    //IsConnect = true;
+                }
+                //Cs.Crate($"[{DateTime.Now:G}] [WARNING] Reconnection: TYPE is {msg.Type}\n", ConsoleColor.DarkYellow).Show();
+            });
+            // 接收到消息发生
             WsClient.MessageReceived.Subscribe((message) =>
             {
+                //Cs.Crate($"MESSAGE: {message.Text}\n").Show();
                 JObject obj = JObject.Parse(message.Text);
                 WsSocketProc(obj);
             });
+            Api = new RobotApi(HttpAddress.AbsoluteUri);
+        }
 
-            WsClient.Start().Wait();
-
-            if (msg != null)
+        /// <summary>
+        /// 连接
+        /// </summary>
+        /// <returns></returns>
+        public async Task Connect()
+        {
+            if (WsClient == null)
             {
-                return false;
+                Init();
             }
-            else
-            {
-                Api = new RobotApi(HttpAddress.AbsoluteUri);
-                return true;
-            }
+            await WsClient.Start();
+            //return IsConnect;
         }
 
         /// <summary>
@@ -75,8 +100,14 @@ namespace Ilyfairy.Robot.Sdk
                 case "notice": //撤回触发
 
                     break;
+                case "request":
+
+                    break;
                 default:
+#if DEBUG
                     throw new Exception($"未知类型: {post_type}");
+#endif
+                    break;
             }
         }
         /// <summary>
@@ -87,7 +118,7 @@ namespace Ilyfairy.Robot.Sdk
         {
             if (json.Value<string>("sub_type") == "connect")
             {
-
+                ConnectEvent?.Invoke(this, ConnectType.Success);
             }
 
         }
@@ -103,6 +134,11 @@ namespace Ilyfairy.Robot.Sdk
             var messageChunks = MessageChunkProc(json);
             var sender = SenderProc(json);
 
+            if (string.IsNullOrEmpty(sender.CardName))
+            {
+                sender.CardName = sender.Name;
+            }
+
             switch (type)
             {
                 case "group": //群消息
@@ -112,7 +148,9 @@ namespace Ilyfairy.Robot.Sdk
                     PrivateMessageProc(json, messageChunks, sender);
                     break;
                 default:
-                    Console.WriteLine($"未知消息类型: {type}");
+#if DEBUG
+                    throw new Exception($"未知消息类型: {type}");
+#endif
                     break;
             }
         }
@@ -124,15 +162,14 @@ namespace Ilyfairy.Robot.Sdk
         /// <returns></returns>
         private MessageSender SenderProc(JObject json)
         {
-            Console.WriteLine(json);
-
             var sender = json["sender"];
             if (sender == null) return null;
             var obj = new MessageSender();
 
             obj.QQ = sender.Value<long>("user_id");
-            obj.CardName = sender.Value<string>("card");
             obj.Name = sender.Value<string>("nickname");
+            obj.CardName = sender.Value<string>("card");
+            if (string.IsNullOrEmpty(obj.CardName)) obj.Name = obj.CardName;
             obj.Age = sender.Value<int>("age");
             obj.Sex = sender.Value<string>("sex");
 
@@ -144,7 +181,7 @@ namespace Ilyfairy.Robot.Sdk
         /// </summary>
         /// <param name="json"></param>
         /// <param name="messageChunks"></param>
-        private void GroupMessageProc(JObject json, IEnumerable<MessageChunk> messageChunks,MessageSender sender)
+        private void GroupMessageProc(JObject json, IEnumerable<MessageChunk> messageChunks, MessageSender sender)
         {
             var groupId = json.Value<long>("group_id");
             GroupMessageReceivedEvent?.Invoke(this, new GroupMessage(new Lazy<GroupInfo>(() => Api.GetGroupInfo(groupId)))
@@ -259,7 +296,7 @@ namespace Ilyfairy.Robot.Sdk
                         };
                         break;
                     case CQCode.record:
-                        
+
                         break;
                     case CQCode.video:
                         obj = new VideoMessageChunk()
@@ -358,5 +395,9 @@ namespace Ilyfairy.Robot.Sdk
         /// 私聊事件
         /// </summary>
         public event EventHandler<PrivateMessage> PrivateMessageReceivedEvent;
+        /// <summary>
+        /// 连接发生改变时发生
+        /// </summary>
+        public event EventHandler<ConnectType> ConnectEvent;
     }
 }

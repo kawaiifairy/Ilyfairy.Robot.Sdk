@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ilyfairy.Robot.Sdk.Api.MessageContent
+namespace Ilyfairy.Robot.Sdk.Model.Content
 {
     /// <summary>
     /// 群消息

@@ -1,4 +1,4 @@
-﻿namespace Ilyfairy.Robot.Sdk.Api.MessageContent
+﻿namespace Ilyfairy.Robot.Sdk.Model.Content
 {
     /// <summary>
     /// 消息发送者

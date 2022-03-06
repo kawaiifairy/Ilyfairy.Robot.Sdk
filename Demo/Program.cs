@@ -1,5 +1,9 @@
 ﻿using Ilyfairy.Robot.Sdk;
-using Ilyfairy.Robot.Sdk.Api.MessageContent;
+using Ilyfairy.Robot.Sdk.Api.Debug;
+using Ilyfairy.Robot.Sdk.Connect;
+using Ilyfairy.Robot.Sdk.Model.Content;
+using System.Diagnostics;
+using System.Drawing;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
 
@@ -12,25 +16,34 @@ class Program
 
         Robot.PrivateMessageReceivedEvent += Robot_PrivateMessageReceivedEvent;
         Robot.GroupMessageReceivedEvent += Robot_GroupMessageReceivedEvent;
-
-        if (Robot.Connect())
-        {
-            Console.WriteLine("连接成功");
-        }
-        else
-        {
-            Console.WriteLine("连接失败");
-            return;
-        }
+        Robot.ConnectEvent += Robot_ConnectEvent;
+        Robot.Connect();
 
         Thread.Sleep(-1);
+    }
+
+    private static async void Robot_ConnectEvent(object? sender, ConnectType e)
+    {
+        Console.WriteLine(e);
+        switch (e)
+        {
+            case ConnectType.Success:
+                break;
+            case ConnectType.Lost:
+                //Robot.Connect();
+                break;
+            case ConnectType.Error:
+                break;
+            default:
+                break;
+        }
     }
 
     static void Robot_GroupMessageReceivedEvent(object? sender, GroupMessage e)
     {
         //Console.WriteLine($"[{e.Sender.Name} ({e.Sender.QQ})]: {e.OriginText}");
-        Console.WriteLine(e.GroupId);
-        Console.WriteLine(e.Group.Name);
+
+        Console.WriteLine($"{e.Group.Name} {e.Sender.CardName}:{e.Text}");
 
         return;
         var match = Regex.Match(e.Text, @"^echo\s*(?<msg>.*)$");
@@ -44,4 +57,5 @@ class Program
     {
 
     }
+
 }

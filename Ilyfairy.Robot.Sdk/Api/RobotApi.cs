@@ -1,5 +1,7 @@
 ﻿using Flurl.Http;
-using Ilyfairy.Robot.Sdk.Api.MessageChunks;
+using Ilyfairy.Robot.Sdk.Model;
+using Ilyfairy.Robot.Sdk.Model.Chunks;
+using Ilyfairy.Robot.Sdk.Model.Content;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -77,11 +79,11 @@ namespace Ilyfairy.Robot.Sdk.Api
         /// <param name="group">群号</param>
         /// <param name="noCache">是否不使用缓存</param>
         /// <returns></returns>
-        public GroupInfo GetGroupInfo(long group,bool noCache = false)
+        public GroupInfo? GetGroupInfo(long group,bool noCache = false)
         {
-            string url = $"{BaseAddress}get_group_info?group_id={group}&no_cache={noCache}";
-            var r = url.GetStringAsync().Result;
-            var json = JObject.Parse(r);
+            var json = Ex.GetUrlJson($"{BaseAddress}get_group_info?group_id={group}&no_cache={noCache}");
+            if (json == null) return null;
+
             var data = json["data"];
             GroupInfo info = new();
             info.Id = data.Value<long>("group_id");
@@ -93,38 +95,11 @@ namespace Ilyfairy.Robot.Sdk.Api
             info.MaxMemberCount = data.Value<int>("max_member_count");
             return info;
         }
-    }
 
-    public class GroupInfo
-    {
-        /// <summary>
-        /// 群号
-        /// </summary>
-        public long Id { get; set; }
-        /// <summary>
-        /// 群名
-        /// </summary>
-        public string Name { get; set; }
-        /// <summary>
-        /// 群备注
-        /// </summary>
-        public string Memo { get; set; }
-        /// <summary>
-        /// 群创建时间
-        /// </summary>
-        public uint CreateTime { get; set; }
-        /// <summary>
-        /// 群等级
-        /// </summary>
-        public uint Level { get; set; }
-        /// <summary>
-        /// 当前群人数
-        /// </summary>
-        public int MemberCount { get; set; }
-        /// <summary>
-        /// 最大成员数 (群容量)
-        /// </summary>
-        public int MaxMemberCount { get; set; }
+        public void GetFriendList()
+        {
+
+        }
     }
 }
  

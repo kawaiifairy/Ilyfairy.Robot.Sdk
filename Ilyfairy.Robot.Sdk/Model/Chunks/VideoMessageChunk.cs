@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ilyfairy.Robot.Sdk.Api.MessageChunks
+namespace Ilyfairy.Robot.Sdk.Model.Chunks
 {
     /// <summary>
     /// AtQQ
     /// </summary>
-    public class AtMessageChunk : MessageChunk
+    public class VideoMessageChunk : MessageChunk
     {
-        public long AtQQ { get; set; }
+        public string File { get; set; }
+        public string Url { get; set; }
     }
 }
