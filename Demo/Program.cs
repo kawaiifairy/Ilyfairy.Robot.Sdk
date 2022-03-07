@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 class Program
 {
     static RobotManager Robot;
+
     static void Main(string[] args)
     {
         // 初始化Robot新实例
