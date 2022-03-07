@@ -88,7 +88,6 @@ namespace Ilyfairy.Robot.Sdk.Connect
         {
             var post_type = json.Value<string>("post_type");
             if (json.Value<string>("meta_event_type") == "heartbeat") return;
-            Console.WriteLine(json);
 
             switch (post_type)
             {
@@ -303,12 +302,7 @@ namespace Ilyfairy.Robot.Sdk.Connect
                         };
                         break;
                     case CQCode.at:
-                        obj = new AtChunk()
-                        {
-                            OriginText = originText,
-                            Type = code,
-                            AtQQ = long.Parse(property["qq"]),
-                        };
+                        obj = new AtChunk(long.Parse(property["qq"]));
                         break;
                     case CQCode.rps:
                         break;
