@@ -1,4 +1,5 @@
 ﻿using Ilyfairy.Robot.Sdk.Connect;
+using Ilyfairy.Robot.Sdk.Model.Chunks;
 using Ilyfairy.Robot.Sdk.Model.Content;
 using System.Text.RegularExpressions;
 
@@ -13,9 +14,10 @@ class Program
         // 绑定事件
         Robot.GroupMessageReceivedEvent += Robot_GroupMessageReceivedEvent;
         Robot.ConnectEvent += Robot_ConnectEvent;
+
         // 开始连接!
         Robot.Connect();
-
+        
         Thread.Sleep(-1);
     }
 

@@ -12,5 +12,18 @@ namespace Ilyfairy.Robot.Sdk.Model.Chunks
     public class AtChunk : MessageChunk
     {
         public long AtQQ { get; set; }
+
+        internal AtChunk()
+        {
+
+        }
+
+        public AtChunk(long qq)
+        {
+            if (qq < 0) qq = 0;
+            AtQQ = qq;
+            OriginText = $"[CQ:at,qq={qq}]";
+            Type = CQCode.at;
+        }
     }
 }
