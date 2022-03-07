@@ -87,6 +87,8 @@ namespace Ilyfairy.Robot.Sdk.Connect
         private void WsSocketProc(JObject json)
         {
             var post_type = json.Value<string>("post_type");
+            if (json.Value<string>("meta_event_type") == "heartbeat") return;
+            Console.WriteLine(json);
 
             switch (post_type)
             {
@@ -96,13 +98,13 @@ namespace Ilyfairy.Robot.Sdk.Connect
                 case "message":
                     MessageProc(json);
                     break;
-                case "notice": //撤回触发
-
+                case "notice": //特殊事件
+                    NoticeProc(json);
                     break;
                 case "request":
-
                     break;
                 default:
+                    return;
 #if DEBUG
                     throw new Exception($"未知类型: {post_type}");
 #endif
@@ -121,6 +123,29 @@ namespace Ilyfairy.Robot.Sdk.Connect
                 ConnectEvent?.Invoke(this, ConnectType.Success);
             }
 
+        }
+        private void NoticeProc(JObject json)
+        {
+            string notice = json.Value<string>("notice_type");
+            switch (notice)
+            {
+                case "group_increase": //加群
+                    GroupIncreaseEvent?.Invoke(this, new GroupChange()
+                    {
+                        GroupId = json.Value<long>("group_id"),
+                        QQ = json.Value<long>("user_id"),
+                    });
+                    break;
+                case "group_decrease": //退群
+                    GroupDecreaseEvent?.Invoke(this, new GroupChange()
+                    {
+                        GroupId = json.Value<long>("group_id"),
+                        QQ = json.Value<long>("operator_id"),
+                    });
+                    break;
+                default:
+                    break;
+            }
         }
         /// <summary>
         /// qq消息处理
@@ -398,5 +423,13 @@ namespace Ilyfairy.Robot.Sdk.Connect
         /// 连接发生改变时发生
         /// </summary>
         public event EventHandler<ConnectType> ConnectEvent;
+        /// <summary>
+        /// 群人数已增加事件
+        /// </summary>
+        public event EventHandler<GroupChange> GroupIncreaseEvent;
+        /// <summary>
+        /// 群人数已减少事件
+        /// </summary>
+        public event EventHandler<GroupChange> GroupDecreaseEvent;
     }
 }

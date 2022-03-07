@@ -3,7 +3,7 @@ using Ilyfairy.Robot.Sdk.Model.Chunks;
 using Ilyfairy.Robot.Sdk.Model.Content;
 using System.Text.RegularExpressions;
 
-class Program
+class Demo
 {
     static RobotManager Robot;
 
