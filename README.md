@@ -8,6 +8,8 @@ Ilyfairy.Robot.Sdk
 
 前往[go-cqhttp Release](https://github.com/Mrs4s/go-cqhttp/releases)下载go-cqhttp
 
+开启http和ws
+
 
 
 ### 如何使用
