@@ -1,15 +1,13 @@
 ﻿using Ilyfairy.Robot.Sdk.Api;
 using Newtonsoft.Json.Linq;
-using System.Diagnostics;
-using System.Net;
 using System.Text;
 using Websocket.Client;
 using Ilyfairy.Robot.Sdk.Model.Chunks;
 using Ilyfairy.Robot.Sdk.Model.Messages;
-using Ilyfairy.Robot.Sdk.Model;
 using Ilyfairy.Robot.Sdk.Server;
 using Ilyfairy.Robot.Sdk.Model.Units;
 using Ilyfairy.Robot.CSharpSdk.Model.Events.EventHeader;
+using Ilyfairy.Robot.CSharpSdk.Api;
 
 namespace Ilyfairy.Robot.Sdk
 {
@@ -19,6 +17,7 @@ namespace Ilyfairy.Robot.Sdk
         public Uri HttpAddress { get; }
         public WebsocketClient WsClient { get; set; }
         public RobotApi Api { get; private set; }
+        public MessageUtils Utils { get; private set; }
 
         public RobotManager(string wsUri, string httpUri)
         {
@@ -71,6 +70,7 @@ namespace Ilyfairy.Robot.Sdk
                 WsSocketProc(obj);
             });
             Api = new RobotApi(HttpAddress.AbsoluteUri);
+            Utils = new MessageUtils(HttpAddress.AbsoluteUri);
         }
 
         /// <summary>

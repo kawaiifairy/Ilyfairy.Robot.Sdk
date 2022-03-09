@@ -15,13 +15,16 @@ Ilyfairy.Robot.Sdk
 ### 如何使用
 
 ```c#
-using Ilyfairy.Robot.Sdk.Connect;
-using Ilyfairy.Robot.Sdk.Model.Content;
+using Ilyfairy.Robot.CSharpSdk.Model.Events.EventHeader;
+using Ilyfairy.Robot.Sdk;
+using Ilyfairy.Robot.Sdk.Model.Messages;
+using Ilyfairy.Robot.Sdk.Server;
 using System.Text.RegularExpressions;
 
-class Program
+class Demo
 {
     static RobotManager Robot;
+
     static void Main(string[] args)
     {
         // 初始化Robot新实例
@@ -30,6 +33,7 @@ class Program
         // 绑定事件
         Robot.GroupMessageReceivedEvent += Robot_GroupMessageReceivedEvent;
         Robot.ConnectEvent += Robot_ConnectEvent;
+
         // 开始连接!
         Robot.Connect();
 
@@ -37,16 +41,18 @@ class Program
     }
 
     //连接事件
-    private static void Robot_ConnectEvent(object? sender, ConnectType e)
+    private static void Robot_ConnectEvent(object? sender, ConnectEventArgs e)
     {
-        switch (e)
+        switch (e.Type)
         {
             case ConnectType.Success:
                 Console.WriteLine("连接成功");
                 break;
             case ConnectType.Lost:
+                Console.WriteLine("连接断开");
                 break;
             case ConnectType.Error:
+                Console.WriteLine("连接错误");
                 break;
             default:
                 break;

@@ -1,6 +1,7 @@
-﻿using Ilyfairy.Robot.Sdk.Connect;
-using Ilyfairy.Robot.Sdk.Model.Chunks;
+﻿using Ilyfairy.Robot.CSharpSdk.Model.Events.EventHeader;
+using Ilyfairy.Robot.Sdk;
 using Ilyfairy.Robot.Sdk.Model.Messages;
+using Ilyfairy.Robot.Sdk.Server;
 using System.Text.RegularExpressions;
 
 class Demo
@@ -18,21 +19,23 @@ class Demo
 
         // 开始连接!
         Robot.Connect();
-        
+
         Thread.Sleep(-1);
     }
 
     //连接事件
-    private static void Robot_ConnectEvent(object? sender, ConnectType e)
+    private static void Robot_ConnectEvent(object? sender, ConnectEventArgs e)
     {
-        switch (e)
+        switch (e.Type)
         {
             case ConnectType.Success:
                 Console.WriteLine("连接成功");
                 break;
             case ConnectType.Lost:
+                Console.WriteLine("连接断开");
                 break;
             case ConnectType.Error:
+                Console.WriteLine("连接错误");
                 break;
             default:
                 break;
