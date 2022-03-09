@@ -40,5 +40,17 @@ namespace Ilyfairy.Robot.Sdk.Api
                 return null;
             }
         }
+
+        internal static string CQEscape(this string str)
+        {
+            if (string.IsNullOrWhiteSpace(str))
+            {
+                return str;
+            }
+            else
+            {
+                return str.Replace("&", "&amp;").Replace(",", "&#44;").Replace("[", "&#91;").Replace("]", "&#93;");
+            }
+        }
     }
 }

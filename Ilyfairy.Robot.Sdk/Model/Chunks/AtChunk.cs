@@ -7,11 +7,14 @@ using System.Threading.Tasks;
 namespace Ilyfairy.Robot.Sdk.Model.Chunks
 {
     /// <summary>
-    /// AtQQ
+    /// 艾特QQ
     /// </summary>
     public class AtChunk : MessageChunk
     {
-        public long AtQQ { get; set; }
+        /// <summary>
+        /// 需要艾特的QQ
+        /// </summary>
+        public long QQ { get; set; }
 
         internal AtChunk()
         {
@@ -21,7 +24,7 @@ namespace Ilyfairy.Robot.Sdk.Model.Chunks
         public AtChunk(long qq)
         {
             if (qq < 0) qq = 0;
-            AtQQ = qq;
+            QQ = qq;
             OriginText = $"[CQ:at,qq={qq}]";
             Type = CQCode.at;
         }

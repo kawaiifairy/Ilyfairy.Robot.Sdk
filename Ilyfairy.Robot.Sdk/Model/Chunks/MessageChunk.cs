@@ -4,6 +4,9 @@ namespace Ilyfairy.Robot.Sdk.Model.Chunks
 {
     public abstract class MessageChunk
     {
+        /// <summary>
+        /// 原始消息
+        /// </summary>
         public string OriginText { get; set; }
         /// <summary>
         /// 消息块类型 (none为文本消息)

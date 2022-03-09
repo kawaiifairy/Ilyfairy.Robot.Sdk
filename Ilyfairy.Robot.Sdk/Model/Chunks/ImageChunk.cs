@@ -1,5 +1,8 @@
 ﻿namespace Ilyfairy.Robot.Sdk.Model.Chunks
 {
+    /// <summary>
+    /// 图片
+    /// </summary>
     public class ImageChunk : MessageChunk
     {
         public string Url { get; set; }
