@@ -77,7 +77,7 @@ namespace Ilyfairy.Robot.Sdk.Api
             string url = $"{BaseAddress}send_private_msg?user_id={qq}&group_id={groupId}&message={message}&auto_escape={autoEscape}";
             var json = url.GetStringAsync().Result;
             var result = JObject.Parse(json);
-            if(result.Value<string>("status") != "success") return null;
+            if (result.Value<string>("status") != "success") return null;
 
             return result["data"]?.Value<long>("message_id") ?? 0;
         }
@@ -88,7 +88,7 @@ namespace Ilyfairy.Robot.Sdk.Api
         /// <param name="group">群号</param>
         /// <param name="noCache">是否不使用缓存</param>
         /// <returns></returns>
-        public GroupInfo? GetGroupInfo(long group,bool noCache = false)
+        public GroupInfo? GetGroupInfo(long group, bool noCache = false)
         {
             var json = Ex.GetUrlJson($"{BaseAddress}get_group_info?group_id={group}&no_cache={noCache}");
             if (json == null) return null;
@@ -135,6 +135,84 @@ namespace Ilyfairy.Robot.Sdk.Api
 
             return qs.ToArray();
         }
+
+        /// <summary>
+        /// 群员禁言
+        /// </summary>
+        /// <param name="group">群号</param>
+        /// <param name="qq">要禁言的QQ号</param>
+        /// <param name="duration">时长 默认30分钟<br/>0 则取消禁言</param>
+        /// <returns>禁言成功返回True, 否则False</returns>
+        public bool SetGroupMemberMute(long group, long qq, int duration = 30 * 60)
+        {
+            var json = Ex.GetUrlJson($"{BaseAddress}set_group_ban?group_id={group}&user_id={qq}&duration={duration}");
+            if (json == null) return false;
+
+            if (json.Value<string>("status") != "ok" || json.Value<int>("retcode") != 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+        /// <summary>
+        /// 群全员禁言
+        /// </summary>
+        /// <param name="group">群号</param>
+        /// <param name="enable">是否要禁言</param>
+        /// <returns>请求成功返回True, 否则False<br/>True不一定代表禁言成功</returns>
+        public bool SetGroupAllMute(long group, bool enable)
+        {
+            var json = Ex.GetUrlJson($"{BaseAddress}set_group_whole_ban?group_id={group}&enable={enable}");
+            if (json == null) return false;
+
+            if (json.Value<string>("status") != "ok" || json.Value<int>("retcode") != 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// 设置群名
+        /// </summary>
+        /// <param name="group">群号</param>
+        /// <param name="newName">要设置的新的群名</param>
+        /// <returns>请求成功返回True, 否则False<br/>True不一定代表设置成功</returns>
+        public bool SetGroupName(long group, string newName)
+        {
+            var json = Ex.GetUrlJson($"{BaseAddress}set_group_name?group_id={group}&group_name={WebUtility.UrlEncode(newName)}");
+            if (json == null) return false;
+
+            if (json.Value<string>("status") != "ok" || json.Value<int>("retcode") != 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// 设置群名片
+        /// </summary>
+        /// <param name="group">群号</param>
+        /// <param name="qq">要指定的成员qq</param>
+        /// <param name="newCardName">群名片内容</param>
+        /// <returns>请求成功返回True, 否则False<br/>True不一定代表设置成功</returns>
+        public bool SetGroupMemberCardName(long group, long qq, string newCardName)
+        {
+            var json = Ex.GetUrlJson($"{BaseAddress}set_group_card?group_id={group}&user_id={qq}&card={WebUtility.UrlEncode(newCardName)}");
+            if (json == null) return false;
+
+            if (json.Value<string>("status") != "ok" || json.Value<int>("retcode") != 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
 
     }
 
