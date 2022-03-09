@@ -1,5 +1,7 @@
-﻿using Ilyfairy.Robot.CSharpSdk.Model.Events.EventHeader;
+﻿using Ilyfairy.Robot.CSharpSdk.Api;
+using Ilyfairy.Robot.CSharpSdk.Model.Events.EventHeader;
 using Ilyfairy.Robot.Sdk;
+using Ilyfairy.Robot.Sdk.Api;
 using Ilyfairy.Robot.Sdk.Model.Messages;
 
 namespace RobotPluginSdk
@@ -10,13 +12,17 @@ namespace RobotPluginSdk
     public abstract class PluginBase : IDisposable
     {
         private RobotManager Robot;
-        public int Api { get; private set; }
+        public RobotApi Api { get; private set; }
+        public MessageUtils Utils { get; private set; }
+
         public PluginBase()
         {
             Robot = new RobotManager(WsUri, HttpUri);
             Robot.ConnectEvent += OnConnect;
             Robot.PrivateMessageReceivedEvent += OnPrivateMessage;
             Robot.GroupMessageReceivedEvent += OnGroupMessage;
+            Api = Robot.Api;
+            Utils = Robot.Utils;
         }
 
         public void Start()
