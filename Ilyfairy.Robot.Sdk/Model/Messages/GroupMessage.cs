@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Ilyfairy.Robot.Sdk.Model.Units;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ilyfairy.Robot.Sdk.Model.Content
+namespace Ilyfairy.Robot.Sdk.Model.Messages
 {
     /// <summary>
     /// 群消息

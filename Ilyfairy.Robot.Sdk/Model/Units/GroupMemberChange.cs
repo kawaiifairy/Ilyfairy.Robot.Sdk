@@ -1,6 +1,6 @@
-﻿namespace Ilyfairy.Robot.Sdk.Model.Content
+﻿namespace Ilyfairy.Robot.Sdk.Model.Units
 {
-    public class GroupChange
+    public class GroupMemberChange
     {
         public long GroupId { get; set; }
         public long QQ { get; set; }

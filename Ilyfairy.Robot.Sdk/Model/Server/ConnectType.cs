@@ -1,4 +1,4 @@
-﻿namespace Ilyfairy.Robot.Sdk.Connect
+﻿namespace Ilyfairy.Robot.Sdk.Server
 {
     /// <summary>
     /// 连接状态

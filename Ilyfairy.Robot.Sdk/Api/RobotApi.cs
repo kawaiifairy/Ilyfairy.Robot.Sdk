@@ -1,7 +1,8 @@
 ﻿using Flurl.Http;
 using Ilyfairy.Robot.Sdk.Model;
 using Ilyfairy.Robot.Sdk.Model.Chunks;
-using Ilyfairy.Robot.Sdk.Model.Content;
+using Ilyfairy.Robot.Sdk.Model.Messages;
+using Ilyfairy.Robot.Sdk.Model.Units;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -104,10 +105,37 @@ namespace Ilyfairy.Robot.Sdk.Api
             return info;
         }
 
-        public void GetFriendList()
+        /// <summary>
+        /// 获取好友列表
+        /// </summary>
+        public Friend[] GetFriendList()
         {
+            var json = Ex.GetUrlJson($"{BaseAddress}get_friend_list");
+            if (json == null) return null;
 
+            if (json.Value<string>("status") != "ok" || json.Value<int>("retcode") != 0)
+            {
+                return null;
+            }
+
+            List<Friend> qs = new();
+            var data = json["data"].ToArray();
+            foreach (var item in data)
+            {
+                var nickname = item.Value<string>("nickname");
+                var remark = item.Value<string>("remark");
+                var user_id = item.Value<long>("user_id");
+
+                Friend qq = new();
+                qq.Name = nickname;
+                qq.Remark = remark;
+                qq.QQ = user_id;
+                qs.Add(qq);
+            }
+
+            return qs.ToArray();
         }
+
     }
+
 }
- 

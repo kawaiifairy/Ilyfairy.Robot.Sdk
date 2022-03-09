@@ -1,5 +1,5 @@
 ﻿using Ilyfairy.Robot.Sdk.Connect;
-using Ilyfairy.Robot.Sdk.Model.Content;
+using Ilyfairy.Robot.Sdk.Model.Messages;
 
 namespace RobotPluginSdk
 {

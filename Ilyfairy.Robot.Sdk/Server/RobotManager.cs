@@ -5,11 +5,13 @@ using System.Net;
 using System.Text;
 using Websocket.Client;
 using Ilyfairy.Robot.Sdk.Model.Chunks;
-using Ilyfairy.Robot.Sdk.Model.Content;
+using Ilyfairy.Robot.Sdk.Model.Messages;
 using Ilyfairy.Robot.Sdk.Model;
-using Ilyfairy.Robot.Sdk.Api.Debug;
+using Ilyfairy.Robot.Sdk.Server;
+using Ilyfairy.Robot.Sdk.Model.Units;
+using Ilyfairy.Robot.CSharpSdk.Model.Events.EventHeader;
 
-namespace Ilyfairy.Robot.Sdk.Connect
+namespace Ilyfairy.Robot.Sdk
 {
     public class RobotManager
     {
@@ -37,12 +39,18 @@ namespace Ilyfairy.Robot.Sdk.Connect
                 //Cs.Crate($"[{DateTime.Now:G}] [WARNING] Disconnection: TYPE is {msg.Type}\n", ConsoleColor.DarkYellow).Show();
                 if (msg.Type == DisconnectionType.Lost)
                 {
-                    ConnectEvent?.Invoke(this, ConnectType.Lost);
+                    ConnectEvent?.Invoke(this, new()
+                    {
+                        Type = ConnectType.Lost
+                    });
                     //Console.WriteLine("连接断开");
                 }
                 else
                 {
-                    ConnectEvent?.Invoke(this, ConnectType.Error);
+                    ConnectEvent?.Invoke(this, new()
+                    {
+                        Type = ConnectType.Error
+                    });
                 }
                 //ConnectEvent?.Invoke(this, false);
             });
@@ -119,7 +127,10 @@ namespace Ilyfairy.Robot.Sdk.Connect
         {
             if (json.Value<string>("sub_type") == "connect")
             {
-                ConnectEvent?.Invoke(this, ConnectType.Success);
+                ConnectEvent?.Invoke(this, new ConnectEventArgs
+                {
+                    Type = ConnectType.Success,
+                });
             }
 
         }
@@ -129,14 +140,14 @@ namespace Ilyfairy.Robot.Sdk.Connect
             switch (notice)
             {
                 case "group_increase": //加群
-                    GroupIncreaseEvent?.Invoke(this, new GroupChange()
+                    GroupIncreaseEvent?.Invoke(this, new GroupMemberChange()
                     {
                         GroupId = json.Value<long>("group_id"),
                         QQ = json.Value<long>("user_id"),
                     });
                     break;
                 case "group_decrease": //退群
-                    GroupDecreaseEvent?.Invoke(this, new GroupChange()
+                    GroupDecreaseEvent?.Invoke(this, new GroupMemberChange()
                     {
                         GroupId = json.Value<long>("group_id"),
                         QQ = json.Value<long>("operator_id"),
@@ -416,14 +427,14 @@ namespace Ilyfairy.Robot.Sdk.Connect
         /// <summary>
         /// 连接发生改变时发生
         /// </summary>
-        public event EventHandler<ConnectType> ConnectEvent;
+        public event EventHandler<ConnectEventArgs> ConnectEvent;
         /// <summary>
         /// 群人数已增加事件
         /// </summary>
-        public event EventHandler<GroupChange> GroupIncreaseEvent;
+        public event EventHandler<GroupMemberChange> GroupIncreaseEvent;
         /// <summary>
         /// 群人数已减少事件
         /// </summary>
-        public event EventHandler<GroupChange> GroupDecreaseEvent;
+        public event EventHandler<GroupMemberChange> GroupDecreaseEvent;
     }
 }

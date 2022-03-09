@@ -1,24 +1,24 @@
 ﻿using System.Diagnostics;
 
-namespace Ilyfairy.Robot.Sdk.Api.Debug
+namespace Ilyfairy.Robot.Sdk.Api.Logging
 {
-    public class Cs
+    public class CS
     {
         private List<(string, ConsoleColor, ConsoleColor, bool)> list = new();
 
-        public static Cs Crate(string text, ConsoleColor force = ConsoleColor.Gray, ConsoleColor back = ConsoleColor.Black)
+        public static CS Crate(string text, ConsoleColor force = ConsoleColor.Gray, ConsoleColor back = ConsoleColor.Black)
         {
-            Cs co = new Cs();
+            CS co = new CS();
             co.list.Add((text, force, back, false));
             return co;
         }
 
-        public Cs Write(string text, ConsoleColor force = ConsoleColor.Gray, ConsoleColor back = ConsoleColor.Black)
+        public CS Write(string text, ConsoleColor force = ConsoleColor.Gray, ConsoleColor back = ConsoleColor.Black)
         {
             list.Add((text, force, back, false));
             return this;
         }
-        public Cs WriteLine(string text, ConsoleColor force = ConsoleColor.Gray, ConsoleColor back = ConsoleColor.Black)
+        public CS WriteLine(string text, ConsoleColor force = ConsoleColor.Gray, ConsoleColor back = ConsoleColor.Black)
         {
             list.Add((text, force, back, true));
             return this;

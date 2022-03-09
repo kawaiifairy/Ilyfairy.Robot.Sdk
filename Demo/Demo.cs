@@ -1,6 +1,6 @@
 ﻿using Ilyfairy.Robot.Sdk.Connect;
 using Ilyfairy.Robot.Sdk.Model.Chunks;
-using Ilyfairy.Robot.Sdk.Model.Content;
+using Ilyfairy.Robot.Sdk.Model.Messages;
 using System.Text.RegularExpressions;
 
 class Demo

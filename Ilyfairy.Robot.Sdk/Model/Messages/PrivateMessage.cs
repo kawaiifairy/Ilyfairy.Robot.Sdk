@@ -1,4 +1,6 @@
-﻿namespace Ilyfairy.Robot.Sdk.Model.Content
+﻿using Ilyfairy.Robot.Sdk.Model.Units;
+
+namespace Ilyfairy.Robot.Sdk.Model.Messages
 {
     /// <summary>
     /// 私聊消息

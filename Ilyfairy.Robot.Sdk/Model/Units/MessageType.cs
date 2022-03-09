@@ -1,4 +1,4 @@
-﻿namespace Ilyfairy.Robot.Sdk.Model.Content
+﻿namespace Ilyfairy.Robot.Sdk.Model.Units
 {
     /// <summary>
     /// 消息类型

@@ -1,7 +1,8 @@
 ﻿using Ilyfairy.Robot.Sdk.Api;
 using Ilyfairy.Robot.Sdk.Model.Chunks;
+using Ilyfairy.Robot.Sdk.Model.Units;
 
-namespace Ilyfairy.Robot.Sdk.Model.Content
+namespace Ilyfairy.Robot.Sdk.Model.Messages
 {
     /// <summary>
     /// QQ消息基类
