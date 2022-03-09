@@ -1,4 +1,5 @@
-﻿using Ilyfairy.Robot.Sdk.Connect;
+﻿using Ilyfairy.Robot.CSharpSdk.Model.Events.EventHeader;
+using Ilyfairy.Robot.Sdk;
 using Ilyfairy.Robot.Sdk.Model.Messages;
 
 namespace RobotPluginSdk
@@ -42,7 +43,7 @@ namespace RobotPluginSdk
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnConnect(object? sender, ConnectType e)
+        private void OnConnect(object? sender, ConnectEventArgs e)
         {
             
         }
