@@ -1,6 +1,5 @@
 ﻿class Program
 {
-
     static void Main(string[] args)
     {
         PluginManager manager = new();
@@ -12,7 +11,8 @@
             try
             {
                 var plugin = manager.Load(file);
-                Console.WriteLine($"插件加载成功: {plugin.File}");
+                plugin.Start();
+                Console.WriteLine($"插件加载成功: {Path.GetFileName(plugin.File)}");
             }
             catch (Exception e)
             {
