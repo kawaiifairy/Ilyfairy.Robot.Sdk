@@ -13,7 +13,7 @@
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/kawaiifairy/Ilyfairy.Robot.Sdk</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Description>go-cqhttp SDK</Description>
+    <Description>go-cqhttp C# Sdk</Description>
     <Version>1.2.0</Version>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
