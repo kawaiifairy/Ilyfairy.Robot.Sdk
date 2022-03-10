@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ilyfairy.Robot.CSharpSdk.Api
+namespace Ilyfairy.Robot.Sdk.Api
 {
     public class MessageUtils
     {

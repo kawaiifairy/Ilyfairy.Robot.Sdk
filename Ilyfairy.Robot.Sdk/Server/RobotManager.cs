@@ -6,7 +6,7 @@ using Ilyfairy.Robot.Sdk.Model.Chunks;
 using Ilyfairy.Robot.Sdk.Model.Messages;
 using Ilyfairy.Robot.Sdk.Server;
 using Ilyfairy.Robot.Sdk.Model.Units;
-using Ilyfairy.Robot.CSharpSdk.Api;
+using Ilyfairy.Robot.Sdk.Api;
 using Ilyfairy.Robot.Sdk.Model.Events;
 
 namespace Ilyfairy.Robot.Sdk

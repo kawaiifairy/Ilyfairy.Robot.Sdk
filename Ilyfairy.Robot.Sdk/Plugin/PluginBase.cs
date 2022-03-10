@@ -1,6 +1,4 @@
-﻿using Ilyfairy.Robot.CSharpSdk.Api;
-using Ilyfairy.Robot.Sdk;
-using Ilyfairy.Robot.Sdk.Api;
+﻿using Ilyfairy.Robot.Sdk.Api;
 using Ilyfairy.Robot.Sdk.Model.Events;
 using Ilyfairy.Robot.Sdk.Model.Messages;
 

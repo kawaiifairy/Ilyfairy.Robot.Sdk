@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ilyfairy.Robot.CSharpSdk.Model.Units
+namespace Ilyfairy.Robot.Sdk.Model.Units
 {
     /// <summary>
     /// 音乐卡片类型
