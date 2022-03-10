@@ -4,24 +4,22 @@
     static void Main(string[] args)
     {
         PluginManager manager = new();
-
-        string input;
-        while (true)
+        Directory.CreateDirectory("plugins");
+        var files = Directory.GetFiles("plugins", "*.dll");
+        Console.WriteLine($"plugins下一共检测到{files.Length}个插件");
+        foreach (var file in files)
         {
-            input = Console.ReadLine();
-            if (input.StartsWith("load "))
+            try
             {
-                var file = input[5..].Trim();
-                try
-                {
-                    var plugin = manager.Load(file);
-                    Console.WriteLine($"插件加载成功: {plugin.File}");
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
+                var plugin = manager.Load(file);
+                Console.WriteLine($"插件加载成功: {plugin.File}");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
+
+        Thread.Sleep(-1);
     }
 }

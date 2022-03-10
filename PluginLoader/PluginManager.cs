@@ -1,4 +1,4 @@
-﻿using RobotPluginSdk;
+﻿using Ilyfairy.Robot.Sdk.Plugin;
 using System.Reflection;
 
 class PluginManager
@@ -21,12 +21,12 @@ class PluginManager
         {
             throw new Exception($"dll加载异常: {file}\n{e.Message}");
         }
-        TypeInfo? typeInfo = asm.DefinedTypes.FirstOrDefault(v => v.BaseType == typeof(RobotBase));
+        TypeInfo? typeInfo = asm.DefinedTypes.FirstOrDefault(v => v.BaseType == typeof(PluginBase));
         if (typeInfo == null)
         {
             throw new Exception($"找不到 PluginBase 的派生类: {file}");
         }
-        var obj = Activator.CreateInstance(typeInfo) as RobotBase;
+        var obj = Activator.CreateInstance(typeInfo) as PluginBase;
         if (obj == null)
         {
             throw new Exception($"初始化 PluginBase 新实例异常");
