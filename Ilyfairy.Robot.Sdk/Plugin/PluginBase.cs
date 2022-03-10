@@ -21,13 +21,13 @@ namespace Ilyfairy.Robot.Sdk.Plugin
             Robot.ConnectEvent += OnConnect;
             Robot.PrivateMessageReceivedEvent += OnPrivateMessage;
             Robot.GroupMessageReceivedEvent += OnGroupMessage;
-            Api = Robot.Api;
-            Utils = Robot.Utils;
         }
 
         public void Start()
         {
             Robot.Connect();
+            Api = Robot.Api;
+            Utils = Robot.Utils;
         }
 
         public void Close()
