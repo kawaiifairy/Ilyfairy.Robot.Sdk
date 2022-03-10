@@ -21,12 +21,12 @@ class PluginManager
         {
             throw new Exception($"dll加载异常: {file}\n{e.Message}");
         }
-        TypeInfo? typeInfo = asm.DefinedTypes.FirstOrDefault(v => v.BaseType == typeof(PluginBase));
+        TypeInfo? typeInfo = asm.DefinedTypes.FirstOrDefault(v => v.BaseType == typeof(RobotBase));
         if (typeInfo == null)
         {
             throw new Exception($"找不到 PluginBase 的派生类: {file}");
         }
-        var obj = Activator.CreateInstance(typeInfo) as PluginBase;
+        var obj = Activator.CreateInstance(typeInfo) as RobotBase;
         if (obj == null)
         {
             throw new Exception($"初始化 PluginBase 新实例异常");

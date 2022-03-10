@@ -1,10 +1,10 @@
 ﻿using Ilyfairy.Robot.CSharpSdk.Api;
-using Ilyfairy.Robot.CSharpSdk.Model.Events.EventHeader;
 using Ilyfairy.Robot.Sdk;
 using Ilyfairy.Robot.Sdk.Api;
+using Ilyfairy.Robot.Sdk.Model.Events;
 using Ilyfairy.Robot.Sdk.Model.Messages;
 
-namespace RobotPluginSdk
+namespace Ilyfairy.Robot.Sdk.Plugin
 {
     /// <summary>
     /// 插件基类
@@ -49,7 +49,7 @@ namespace RobotPluginSdk
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnConnect(object? sender, ConnectEventArgs e)
+        protected virtual void OnConnect(object? sender, ConnectEventArgs e)
         {
             
         }
@@ -58,7 +58,7 @@ namespace RobotPluginSdk
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnPrivateMessage(object? sender, PrivateMessage e)
+        protected virtual void OnPrivateMessage(object? sender, PrivateMessage e)
         {
             
         }
@@ -67,33 +67,10 @@ namespace RobotPluginSdk
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public virtual void OnGroupMessage(object? sender, GroupMessage e)
+        protected virtual void OnGroupMessage(object? sender, GroupMessage e)
         {
 
         }
 
-    }
-
-    /// <summary>
-    /// 插件信息
-    /// </summary>
-    public class PluginInfo
-    {
-        /// <summary>
-        /// 插件名
-        /// </summary>
-        public string Name { get; set; }
-        /// <summary>
-        /// 说明
-        /// </summary>
-        public string Description { get; set; }
-        /// <summary>
-        /// 版本
-        /// </summary>
-        public Version Version { get; set; }
-        /// <summary>
-        /// 作者
-        /// </summary>
-        public string Author { get; set; }
     }
 }

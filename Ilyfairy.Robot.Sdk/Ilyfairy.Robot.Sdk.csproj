@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>Ilyfairy.Robot.CSharpSdk</RootNamespace>
+    <RootNamespace>Ilyfairy.Robot.Sdk</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>

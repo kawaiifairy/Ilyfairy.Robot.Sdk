@@ -1,23 +1,4 @@
-Ilyfairy.Robot.Sdk
-
-# QQ机器人 C#SDK
-
-采用.net6 C#10编写
-
-### 安装
-
-下载NuGet包: Ilyfairy.Robot.Sdk
-
-前往[go-cqhttp Release](https://github.com/Mrs4s/go-cqhttp/releases)下载go-cqhttp
-
-开启http和ws
-
-
-
-### 如何使用
-
-```c#
-using Ilyfairy.Robot.Sdk.Model.Events;
+﻿using Ilyfairy.Robot.Sdk.Model.Events;
 using Ilyfairy.Robot.Sdk.Model.Messages;
 using Ilyfairy.Robot.Sdk.Plugin;
 using Ilyfairy.Robot.Sdk.Server;
@@ -80,9 +61,3 @@ namespace Demo
         }
     }
 }
-```
-
-
-
-
-

@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace Ilyfairy.Robot.Sdk.Api.Logging
+namespace Ilyfairy.Robot.Sdk.Api
 {
     public class CS
     {
@@ -24,7 +24,6 @@ namespace Ilyfairy.Robot.Sdk.Api.Logging
             return this;
         }
 
-        [Conditional("DEBUG")]
         public void Show()
         {
             foreach (var item in list)

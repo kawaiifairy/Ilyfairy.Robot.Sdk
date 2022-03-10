@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ilyfairy.Robot.CSharpSdk.Model.Events
+namespace Ilyfairy.Robot.Sdk.Model.Events
 {
     public class ConnectEventArgs : EventArgs
     {
