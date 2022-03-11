@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -10,12 +10,15 @@
     <Authors>ilyfairy</Authors>
     <AssemblyName>Ilyfairy.Robot.PluginLoader</AssemblyName>
     <RootNamespace>Ilyfairy.Robot.PluginLoader</RootNamespace>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/kawaiifairy/Ilyfairy.Robot.Sdk</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/kawaiifairy/Ilyfairy.Robot.Sdk</PackageProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Ilyfairy.Robot.PluginSdk\Ilyfairy.Robot.PluginSdk.csproj" />
     <ProjectReference Include="..\Ilyfairy.Robot.Sdk\Ilyfairy.Robot.Sdk.csproj" />
-    <ProjectReference Include="..\Ilyfairy.Robot.Server\Ilyfairy.Robot.Server.csproj" />
+    <ProjectReference Include="..\Ilyfairy.Robot.Server\Ilyfairy.Robot.Manager.csproj" />
   </ItemGroup>
 
 </Project>

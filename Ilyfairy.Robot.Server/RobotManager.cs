@@ -9,7 +9,7 @@ using Ilyfairy.Robot.Sdk.Model.Units;
 using Ilyfairy.Robot.Sdk.Model.Events;
 using Ilyfairy.Robot.Sdk;
 
-namespace Ilyfairy.Robot.Server
+namespace Ilyfairy.Robot.Manager
 {
     public class RobotManager
     {
