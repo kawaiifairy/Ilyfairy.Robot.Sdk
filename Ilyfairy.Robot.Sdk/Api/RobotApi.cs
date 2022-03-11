@@ -249,6 +249,28 @@ namespace Ilyfairy.Robot.Sdk.Api
             }
             return true;
         }
+
+        /// <summary>
+        /// 处理加群请求
+        /// </summary>
+        /// <param name="flag">Flag</param>
+        /// <param name="isAllow">是否同意</param>
+        /// <param name="type">同意后的备注</param>
+        /// <param name="reason">拒绝的理由</param>
+        /// <returns>True添加成功</returns>
+        public bool AllowGroupRequest(long flag, GroupRequestType type, bool isAllow, string reason = null)
+        {
+            var json = Ex.GetUrlJson($"{BaseAddress}set_group_add_request?flag={flag}&type={(type == GroupRequestType.Add ? "add" : "invite")}&approve={isAllow}&reason={WebUtility.UrlEncode(reason)}");
+            if (json == null) return false;
+
+            if (json.Value<string>("status") != "ok" || json.Value<int>("retcode") != 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
     }
 
 }

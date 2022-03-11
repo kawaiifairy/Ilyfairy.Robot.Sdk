@@ -9,6 +9,7 @@
     <RepositoryUrl>https://github.com/kawaiifairy/Ilyfairy.Robot.Sdk</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/kawaiifairy/Ilyfairy.Robot.Sdk</PackageProjectUrl>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

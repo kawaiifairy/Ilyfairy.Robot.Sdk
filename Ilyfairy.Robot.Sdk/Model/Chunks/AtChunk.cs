@@ -21,11 +21,14 @@ namespace Ilyfairy.Robot.Sdk.Model.Chunks
 
         }
 
+        /// <summary>
+        /// 艾特QQ
+        /// </summary>
+        /// <param name="qq">艾特的QQ，-1表示艾特全体</param>
         public AtChunk(long qq)
         {
-            if (qq < 0) qq = 0;
             QQ = qq;
-            OriginText = $"[CQ:at,qq={qq}]";
+            OriginText = $"[CQ:at,qq={(qq == -1 ? "all" : qq)}]";
             Type = CQCode.at;
         }
     }

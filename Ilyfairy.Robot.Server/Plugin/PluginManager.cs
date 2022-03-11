@@ -30,10 +30,10 @@ namespace Ilyfairy.Robot.Manager
             Robot.GroupIncreaseEvent += Robot_GroupIncreaseEvent;
             Robot.GroupDecreaseEvent += Robot_GroupDecreaseEvent;
             Robot.FriendRequestEvent += Robot_FriendRequestEvent;
+            Robot.GroupRequestEvent += Robot_GroupRequestEvent;
         }
 
-
-
+       
         public async Task Connect()
         {
             await Robot.Connect();
@@ -123,7 +123,6 @@ namespace Ilyfairy.Robot.Manager
                 return plugin.Instance.OnGroupMessage(sender, e);
             });
         }
-
         private void Robot_GroupIncreaseEvent(object? sender, GroupMemberChange e)
         {
             Loop(plugin =>
@@ -131,7 +130,6 @@ namespace Ilyfairy.Robot.Manager
                 return plugin.Instance.OnGroupIncrease(sender, e);
             });
         }
-
         private void Robot_GroupDecreaseEvent(object? sender, GroupMemberChange e)
         {
             Loop(plugin =>
@@ -146,6 +144,14 @@ namespace Ilyfairy.Robot.Manager
                 return plugin.Instance.OnFriendRequest(sender, e);
             });
         }
+        private void Robot_GroupRequestEvent(object? sender, GroupRequestArgs e)
+        {
+            Loop(plugin =>
+            {
+                return plugin.Instance.OnGroupRequest(sender, e);
+            });
+        }
+
     }
 
 }

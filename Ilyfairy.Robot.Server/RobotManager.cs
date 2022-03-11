@@ -9,6 +9,7 @@ using Ilyfairy.Robot.Sdk.Model.Units;
 using Ilyfairy.Robot.Sdk.Model.Events;
 using Ilyfairy.Robot.Sdk;
 using Ilyfairy.Robot.Sdk.Model.Events.EventArgs;
+using System.Diagnostics;
 
 namespace Ilyfairy.Robot.Manager
 {
@@ -211,6 +212,20 @@ namespace Ilyfairy.Robot.Manager
                         FriendRequestEvent?.Invoke(this, e);
                     }
                     break;
+                case "group":
+                    {
+                        var e = new GroupRequestArgs()
+                        {
+                            Comment = json.Value<string>("comment"),
+                            Flag = json.Value<long>("flag"),
+                            QQ = json.Value<long>("user_id"),
+                            RobotQQ = json.Value<long>("self_id"),
+                            GroupId = json.Value<long>("group_id"),
+                            Type = json.Value<string>("sub_type") == "add" ? GroupRequestType.Add : GroupRequestType.Invite,
+                        };
+                        GroupRequestEvent?.Invoke(this, e);
+                    }
+                    break;
                 default:
                     break;
             }
@@ -334,7 +349,14 @@ namespace Ilyfairy.Robot.Manager
                         };
                         break;
                     case CQCode.at:
-                        obj = new AtChunk(long.Parse(property["qq"]));
+                        if (property["qq"] == "all")
+                        {
+                            obj = new AtChunk(-1);
+                        }
+                        else
+                        {
+                            obj = new AtChunk(long.Parse(property["qq"]));
+                        }
                         break;
                     case CQCode.rps:
                         break;
@@ -461,5 +483,9 @@ namespace Ilyfairy.Robot.Manager
         /// 好友请求事件
         /// </summary>
         public event EventHandler<FriendRequestArgs> FriendRequestEvent;
+        /// <summary>
+        /// 加群请求事件
+        /// </summary>
+        public event EventHandler<GroupRequestArgs> GroupRequestEvent;
     }
 }

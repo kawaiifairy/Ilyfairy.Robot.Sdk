@@ -72,6 +72,17 @@ namespace Ilyfairy.Robot.Sdk.Plugin
         {
             return true;
         }
+        /// <summary>
+        /// 加群请求
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        public virtual bool OnGroupRequest(object? sender,GroupRequestArgs e)
+        {
+            return true;
+        }
+
 
     }
 }
