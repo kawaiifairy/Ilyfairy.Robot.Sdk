@@ -5,12 +5,17 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <PackageId>Ilyfairy.Robot.PluginLoader</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>ilyfairy</Authors>
+    <AssemblyName>Ilyfairy.Robot.PluginLoader</AssemblyName>
+    <RootNamespace>Ilyfairy.Robot.PluginLoader</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Ilyfairy.Robot.PluginSdk\Ilyfairy.Robot.PluginSdk.csproj" />
     <ProjectReference Include="..\Ilyfairy.Robot.Sdk\Ilyfairy.Robot.Sdk.csproj" />
-    <ProjectReference Include="..\PluginLoader\Ilyfairy.Robot.PluginLoader.csproj" />
+    <ProjectReference Include="..\Ilyfairy.Robot.Server\Ilyfairy.Robot.Server.csproj" />
   </ItemGroup>
 
 </Project>

@@ -7,8 +7,9 @@ using Ilyfairy.Robot.Sdk.Model.Messages;
 using Ilyfairy.Robot.Sdk.Server;
 using Ilyfairy.Robot.Sdk.Model.Units;
 using Ilyfairy.Robot.Sdk.Model.Events;
+using Ilyfairy.Robot.Sdk;
 
-namespace Ilyfairy.Robot.Sdk
+namespace Ilyfairy.Robot.Server
 {
     public class RobotManager
     {
@@ -18,10 +19,10 @@ namespace Ilyfairy.Robot.Sdk
         public RobotApi Api { get; private set; }
         public MessageUtils Utils { get; private set; }
 
-        public RobotManager(string wsUri, string httpUri)
+        public RobotManager(string wsAddress, string httpAddress)
         {
-            WsAddress = new Uri(wsUri);
-            HttpAddress = new Uri(httpUri);
+            WsAddress = new Uri(wsAddress);
+            HttpAddress = new Uri(httpAddress);
         }
 
         private void Init()
@@ -291,12 +292,7 @@ namespace Ilyfairy.Robot.Sdk
 #endif
                         break;
                     case CQCode.face:
-                        obj = new FaceChunk()
-                        {
-                            OriginText = originText,
-                            Type = code,
-                            Face = int.Parse(property["id"]),
-                        };
+                        obj = new FaceChunk(int.Parse(property["id"]));
                         break;
                     case CQCode.record:
 

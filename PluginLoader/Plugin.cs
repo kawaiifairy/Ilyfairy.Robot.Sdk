@@ -1,19 +1,13 @@
 ﻿using Ilyfairy.Robot.Sdk.Plugin;
 
-class Plugin
+
+namespace Ilyfairy.Robot.PluginLoader
 {
-    public string File { get; set; }
-    public PluginBase Instance { get; set; }
-    public PluginInfo Info { get; set; }
-
-    public void Start()
+    public class Plugin
     {
-        Instance.Start();
+        public string File { get; set; }
+        public PluginBase Instance { get; set; }
+        public PluginInfo Info { get; set; }
+        public bool Enabled { get; set; }
     }
-
-    public void Close()
-    {
-        Instance.Close();
-    }
-
 }

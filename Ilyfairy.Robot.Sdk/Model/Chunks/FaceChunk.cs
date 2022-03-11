@@ -3,10 +3,10 @@
     public class FaceChunk : MessageChunk
     {
         public int Face { get; set; }
-        internal FaceChunk()
-        {
+        //public FaceChunk()
+        //{
 
-        }
+        //}
 
         public FaceChunk(int id)
         {
