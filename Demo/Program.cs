@@ -1,4 +1,4 @@
-﻿using Ilyfairy.Robot.PluginLoader;
+﻿using Ilyfairy.Robot.Manager;
 using Ilyfairy.Robot.Sdk.Model.Events;
 using Ilyfairy.Robot.Sdk.Model.Messages;
 using Ilyfairy.Robot.Sdk.Plugin;

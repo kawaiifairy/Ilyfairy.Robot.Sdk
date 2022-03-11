@@ -1,7 +1,9 @@
-﻿using Ilyfairy.Robot.Sdk.Plugin;
+﻿
 
 
-namespace Ilyfairy.Robot.PluginLoader
+using Ilyfairy.Robot.Sdk.Plugin;
+
+namespace Ilyfairy.Robot.Manager
 {
     public class Plugin
     {

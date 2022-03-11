@@ -5,7 +5,7 @@ using Ilyfairy.Robot.Sdk.Model.Units;
 using Ilyfairy.Robot.Sdk.Plugin;
 using System.Reflection;
 
-namespace Ilyfairy.Robot.PluginLoader
+namespace Ilyfairy.Robot.Manager
 {
     public class PluginManager
     {

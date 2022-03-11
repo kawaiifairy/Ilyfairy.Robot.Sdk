@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyPlugin", "MyPlugin\MyPlugin.csproj", "{C7247EB6-CDE6-48DE-8FD1-7690F84D5895}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ilyfairy.Robot.PluginLoader", "PluginLoader\Ilyfairy.Robot.PluginLoader.csproj", "{777351AE-8004-45B1-B085-9559DD6A7109}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ilyfairy.Robot.PluginSdk", "Ilyfairy.Robot.PluginSdk\Ilyfairy.Robot.PluginSdk.csproj", "{7FA3E363-74BC-4AB0-AAB5-0B9BEC373523}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ilyfairy.Robot.Manager", "Ilyfairy.Robot.Server\Ilyfairy.Robot.Manager.csproj", "{6D4C43A5-6CE2-49E2-8739-3E0838F9B30C}"
@@ -39,10 +37,6 @@ Global
 		{C7247EB6-CDE6-48DE-8FD1-7690F84D5895}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7247EB6-CDE6-48DE-8FD1-7690F84D5895}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7247EB6-CDE6-48DE-8FD1-7690F84D5895}.Release|Any CPU.Build.0 = Release|Any CPU
-		{777351AE-8004-45B1-B085-9559DD6A7109}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{777351AE-8004-45B1-B085-9559DD6A7109}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{777351AE-8004-45B1-B085-9559DD6A7109}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{777351AE-8004-45B1-B085-9559DD6A7109}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7FA3E363-74BC-4AB0-AAB5-0B9BEC373523}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7FA3E363-74BC-4AB0-AAB5-0B9BEC373523}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FA3E363-74BC-4AB0-AAB5-0B9BEC373523}.Release|Any CPU.ActiveCfg = Release|Any CPU

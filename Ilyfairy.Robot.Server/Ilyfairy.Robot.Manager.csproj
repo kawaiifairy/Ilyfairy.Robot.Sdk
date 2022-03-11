@@ -12,6 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Ilyfairy.Robot.PluginSdk\Ilyfairy.Robot.PluginSdk.csproj" />
     <ProjectReference Include="..\Ilyfairy.Robot.Sdk\Ilyfairy.Robot.Sdk.csproj" />
   </ItemGroup>
 
