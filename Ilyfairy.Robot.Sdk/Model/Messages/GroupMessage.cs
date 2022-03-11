@@ -12,7 +12,6 @@ namespace Ilyfairy.Robot.Sdk.Model.Messages
     /// </summary>
     public class GroupMessage : MessageBase
     {
-
         /// <summary>
         /// 发送者
         /// </summary>

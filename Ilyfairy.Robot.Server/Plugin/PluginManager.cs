@@ -1,5 +1,6 @@
 ﻿using Ilyfairy.Robot.Manager;
 using Ilyfairy.Robot.Sdk.Model.Events;
+using Ilyfairy.Robot.Sdk.Model.Events.EventArgs;
 using Ilyfairy.Robot.Sdk.Model.Messages;
 using Ilyfairy.Robot.Sdk.Model.Units;
 using Ilyfairy.Robot.Sdk.Plugin;
@@ -28,7 +29,10 @@ namespace Ilyfairy.Robot.Manager
             Robot.GroupMessageReceivedEvent += Robot_GroupMessageReceivedEvent;
             Robot.GroupIncreaseEvent += Robot_GroupIncreaseEvent;
             Robot.GroupDecreaseEvent += Robot_GroupDecreaseEvent;
+            Robot.FriendRequestEvent += Robot_FriendRequestEvent;
         }
+
+
 
         public async Task Connect()
         {
@@ -133,6 +137,13 @@ namespace Ilyfairy.Robot.Manager
             Loop(plugin =>
             {
                 return plugin.Instance.OnGroupDecrease(sender, e);
+            });
+        }
+        private void Robot_FriendRequestEvent(object? sender, FriendRequestArgs e)
+        {
+            Loop(plugin =>
+            {
+                return plugin.Instance.OnFriendRequest(sender, e);
             });
         }
     }

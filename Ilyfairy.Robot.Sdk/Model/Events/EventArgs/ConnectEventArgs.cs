@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Ilyfairy.Robot.Sdk.Model.Events
 {
-    public class ConnectEventArgs : EventArgs
+    public class ConnectEventArgs : EventBase
     {
         public ConnectType Type { get; set; }
     }

@@ -213,7 +213,42 @@ namespace Ilyfairy.Robot.Sdk.Api
             return true;
         }
 
+        /// <summary>
+        /// 处理加好友请求
+        /// </summary>
+        /// <param name="flag">Flag</param>
+        /// <param name="isAllow">是否同意</param>
+        /// <param name="remark">同意后的备注</param>
+        /// <returns>True添加成功</returns>
+        public bool AllowFriendRequest(long flag, bool isAllow, string remark = null)
+        {
+            var json = Ex.GetUrlJson($"{BaseAddress}set_friend_add_request?flag={flag}&approve={isAllow}&remark={WebUtility.UrlEncode(remark)}");
+            if (json == null) return false;
 
+            if (json.Value<string>("status") != "ok" || json.Value<int>("retcode") != 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// 撤回消息
+        /// </summary>
+        /// <param name="messageId">消息ID</param>
+        /// <returns></returns>
+        public bool RetractMessage(int messageId)
+        {
+            var json = Ex.GetUrlJson($"{BaseAddress}delete_msg?message_id={messageId}");
+            if (json == null) return false;
+
+            if (json.Value<string>("status") != "ok" || json.Value<int>("retcode") != 0)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 
 }

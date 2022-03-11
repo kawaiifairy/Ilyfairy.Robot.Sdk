@@ -8,6 +8,7 @@ using Ilyfairy.Robot.Sdk.Server;
 using Ilyfairy.Robot.Sdk.Model.Units;
 using Ilyfairy.Robot.Sdk.Model.Events;
 using Ilyfairy.Robot.Sdk;
+using Ilyfairy.Robot.Sdk.Model.Events.EventArgs;
 
 namespace Ilyfairy.Robot.Manager
 {
@@ -97,6 +98,8 @@ namespace Ilyfairy.Robot.Manager
             var post_type = json.Value<string>("post_type");
             if (json.Value<string>("meta_event_type") == "heartbeat") return;
 
+            Console.WriteLine(json);
+
             switch (post_type)
             {
                 case "meta_event":
@@ -108,7 +111,8 @@ namespace Ilyfairy.Robot.Manager
                 case "notice": //特殊事件
                     NoticeProc(json);
                     break;
-                case "request":
+                case "request": //添加
+                    RequestProc(json);
                     break;
                 default:
                     return;
@@ -186,6 +190,28 @@ namespace Ilyfairy.Robot.Manager
 #if DEBUG
                     throw new Exception($"未知消息类型: {type}");
 #endif
+                    break;
+            }
+        }
+        private void RequestProc(JObject json)
+        {
+            string type = json.Value<string>("request_type");
+
+            switch (type)
+            {
+                case "friend":
+                    {
+                        var e = new FriendRequestArgs()
+                        {
+                            Comment = json.Value<string>("comment"),
+                            Flag = json.Value<long>("flag"),
+                            QQ = json.Value<long>("user_id"),
+                            RobotQQ = json.Value<long>("self_id")
+                        };
+                        FriendRequestEvent?.Invoke(this, e);
+                    }
+                    break;
+                default:
                     break;
             }
         }
@@ -431,5 +457,9 @@ namespace Ilyfairy.Robot.Manager
         /// 群人数已减少事件
         /// </summary>
         public event EventHandler<GroupMemberChange> GroupDecreaseEvent;
+        /// <summary>
+        /// 好友请求事件
+        /// </summary>
+        public event EventHandler<FriendRequestArgs> FriendRequestEvent;
     }
 }

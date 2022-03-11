@@ -1,5 +1,6 @@
 ﻿using Ilyfairy.Robot.Sdk.Api;
 using Ilyfairy.Robot.Sdk.Model.Events;
+using Ilyfairy.Robot.Sdk.Model.Events.EventArgs;
 using Ilyfairy.Robot.Sdk.Model.Messages;
 using Ilyfairy.Robot.Sdk.Model.Units;
 
@@ -58,6 +59,16 @@ namespace Ilyfairy.Robot.Sdk.Plugin
         /// </summary>
         /// <returns>是否继续向下传递事件</returns>
         public virtual bool OnGroupDecrease(object? sender, GroupMemberChange e)
+        {
+            return true;
+        }
+        /// <summary>
+        /// 加好友请求
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <returns></returns>
+        public virtual bool OnFriendRequest(object? sender,FriendRequestArgs e)
         {
             return true;
         }
