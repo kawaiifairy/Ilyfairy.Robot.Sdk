@@ -6,7 +6,7 @@ Ilyfairy.Robot.Sdk
 
 ### 安装
 
-下载NuGet包: Ilyfairy.Robot.Sdk
+下载NuGet包: Ilyfairy.Robot.Manager
 
 前往[go-cqhttp Release](https://github.com/Mrs4s/go-cqhttp/releases)下载go-cqhttp
 
@@ -17,7 +17,7 @@ Ilyfairy.Robot.Sdk
 ### 如何使用
 
 ```c#
-using Ilyfairy.Robot.PluginLoader;
+using Ilyfairy.Robot.Manager;
 using Ilyfairy.Robot.Sdk.Model.Events;
 using Ilyfairy.Robot.Sdk.Model.Messages;
 using Ilyfairy.Robot.Sdk.Plugin;
