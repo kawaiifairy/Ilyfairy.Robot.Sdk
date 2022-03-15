@@ -11,9 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyPlugin", "MyPlugin\MyPlugin.csproj", "{C7247EB6-CDE6-48DE-8FD1-7690F84D5895}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ilyfairy.Robot.PluginSdk", "Ilyfairy.Robot.PluginSdk\Ilyfairy.Robot.PluginSdk.csproj", "{7FA3E363-74BC-4AB0-AAB5-0B9BEC373523}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ilyfairy.Robot.PluginSdk", "Ilyfairy.Robot.PluginSdk\Ilyfairy.Robot.PluginSdk.csproj", "{7FA3E363-74BC-4AB0-AAB5-0B9BEC373523}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ilyfairy.Robot.Manager", "Ilyfairy.Robot.Server\Ilyfairy.Robot.Manager.csproj", "{6D4C43A5-6CE2-49E2-8739-3E0838F9B30C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ilyfairy.Robot.Manager", "Ilyfairy.Robot.Server\Ilyfairy.Robot.Manager.csproj", "{6D4C43A5-6CE2-49E2-8739-3E0838F9B30C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "发言统计", "发言统计\发言统计.csproj", "{0BBBCF83-AC33-46C0-85DB-7E64D09BEC10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageStatistics", "MessageStatistics\MessageStatistics.csproj", "{A09AFB8A-1FD8-4E61-B791-1AC992B5A6C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{6D4C43A5-6CE2-49E2-8739-3E0838F9B30C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D4C43A5-6CE2-49E2-8739-3E0838F9B30C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D4C43A5-6CE2-49E2-8739-3E0838F9B30C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BBBCF83-AC33-46C0-85DB-7E64D09BEC10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BBBCF83-AC33-46C0-85DB-7E64D09BEC10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BBBCF83-AC33-46C0-85DB-7E64D09BEC10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BBBCF83-AC33-46C0-85DB-7E64D09BEC10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A09AFB8A-1FD8-4E61-B791-1AC992B5A6C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A09AFB8A-1FD8-4E61-B791-1AC992B5A6C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A09AFB8A-1FD8-4E61-B791-1AC992B5A6C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A09AFB8A-1FD8-4E61-B791-1AC992B5A6C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

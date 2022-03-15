@@ -9,7 +9,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/kawaiifairy/Ilyfairy.Robot.Sdk</PackageProjectUrl>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
-    <Version>1.1.1</Version>
+    <Version>1.1.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
