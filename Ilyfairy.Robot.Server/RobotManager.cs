@@ -99,8 +99,6 @@ namespace Ilyfairy.Robot.Manager
             var post_type = json.Value<string>("post_type");
             if (json.Value<string>("meta_event_type") == "heartbeat") return;
 
-            Console.WriteLine(json);
-
             switch (post_type)
             {
                 case "meta_event":
