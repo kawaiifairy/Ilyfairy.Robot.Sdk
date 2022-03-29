@@ -115,9 +115,9 @@ namespace Ilyfairy.Robot.Manager
                     break;
                 default:
                     return;
-#if DEBUG
-                    throw new Exception($"未知类型: {post_type}");
-#endif
+//#if DEBUG
+                    //throw new Exception($"未知类型: {post_type}");
+//#endif
                     break;
             }
         }
@@ -172,6 +172,8 @@ namespace Ilyfairy.Robot.Manager
             var messageChunks = MessageChunkProc(json);
             var sender = SenderProc(json);
 
+            
+
             if (string.IsNullOrEmpty(sender.CardName))
             {
                 sender.CardName = sender.Name;
@@ -186,9 +188,9 @@ namespace Ilyfairy.Robot.Manager
                     PrivateMessageProc(json, messageChunks, sender);
                     break;
                 default:
-#if DEBUG
-                    throw new Exception($"未知消息类型: {type}");
-#endif
+//#if DEBUG
+//                    throw new Exception($"未知消息类型: {type}");
+//#endif
                     break;
             }
         }
@@ -327,9 +329,7 @@ namespace Ilyfairy.Robot.Manager
                 switch (code)
                 {
                     case CQCode.none:
-#if DEBUG
-                        throw new Exception("消息异常");
-#endif
+                        //throw new Exception("消息异常");
                         break;
                     case CQCode.face:
                         obj = new FaceChunk(int.Parse(property["id"]));
@@ -420,9 +420,10 @@ namespace Ilyfairy.Robot.Manager
                 }
                 if (obj == null)
                 {
-#if DEBUG
-                    throw new Exception("未知消息类型");
-#endif
+                    //#if DEBUG
+                    //throw new Exception("未知消息类型");
+                    //#endif
+                    obj = new TextChunk();
                 }
                 yield return obj;
             }
