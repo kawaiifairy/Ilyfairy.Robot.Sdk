@@ -11,7 +11,7 @@ namespace Ilyfairy.Robot.Sdk.Model.Chunks
         public TextChunk(string text)
         {
             this.Text = text;
-            this.OriginText = text.CQEscape();
+            this.OriginText = text.CQTextEscape();
             this.Type = CQCode.none;
         }
 
