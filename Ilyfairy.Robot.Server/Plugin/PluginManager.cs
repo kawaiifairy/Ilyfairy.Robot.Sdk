@@ -51,6 +51,19 @@ namespace Ilyfairy.Robot.Manager
             Plugins.Add(plugin);
             return plugin;
         }
+        public Plugin Load<T>() where T : PluginBase, new()
+        {
+            T obj = new();
+            Plugin plugin = new();
+            plugin.Instance = obj;
+            plugin.Instance.Utils = Robot.Utils;
+            plugin.Instance.Api = Robot.Api;
+            plugin.File = null;
+            plugin.Info = obj.Info;
+
+            Plugins.Add(plugin);
+            return plugin;
+        }
 
         public Plugin Load(string file)
         {
