@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Ilyfairy.Robot.Sdk\Ilyfairy.Robot.Sdk.csproj" />
-	  <!--为什么是project reference, -->
   </ItemGroup>
 
 </Project>

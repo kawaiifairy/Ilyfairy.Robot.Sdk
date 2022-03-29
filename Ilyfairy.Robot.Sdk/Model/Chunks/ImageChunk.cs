@@ -15,7 +15,6 @@ namespace Ilyfairy.Robot.Sdk.Model.Chunks
         {
 
         }
-        
         public ImageChunk(string url)
         {
             var file = new string(Enumerable.Range(0, 32).Select(v => (char)('0' + Random.Shared.Next(0, 10))).ToArray());
