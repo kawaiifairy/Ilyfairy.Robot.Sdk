@@ -362,8 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /Test
-/MyPlugin
-/发言统计
-/MessageStatistics
 /KawaiiRobot
 /DstRobot
