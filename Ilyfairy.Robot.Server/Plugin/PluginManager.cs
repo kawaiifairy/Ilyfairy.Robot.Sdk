@@ -39,9 +39,21 @@ namespace Ilyfairy.Robot.Manager
             await Robot.Connect();
         }
 
+
         public Plugin Load(PluginBase pluginBase)
         {
             Plugin plugin = new();
+            pluginBase.ReConnect = () =>
+            {
+                if (plugin.Enabled)
+                {
+                    return Connect();
+                }
+                else
+                {
+                    return null;
+                }
+            };
             plugin.Instance = pluginBase;
             plugin.Instance.Utils = Robot.Utils;
             plugin.Instance.Api = Robot.Api;
@@ -54,15 +66,7 @@ namespace Ilyfairy.Robot.Manager
         public Plugin Load<T>() where T : PluginBase, new()
         {
             T obj = new();
-            Plugin plugin = new();
-            plugin.Instance = obj;
-            plugin.Instance.Utils = Robot.Utils;
-            plugin.Instance.Api = Robot.Api;
-            plugin.File = null;
-            plugin.Info = obj.Info;
-
-            Plugins.Add(plugin);
-            return plugin;
+            return Load(obj);
         }
 
         public Plugin Load(string file)
@@ -98,6 +102,7 @@ namespace Ilyfairy.Robot.Manager
             plugin.Instance.Api = Robot.Api;
             plugin.File = null;
             plugin.Info = obj.Info;
+            
 
             Plugins.Add(plugin);
             return plugin;

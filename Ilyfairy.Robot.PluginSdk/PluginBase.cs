@@ -16,6 +16,8 @@ namespace Ilyfairy.Robot.Sdk.Plugin
         public MessageUtils Utils { get; set; }
         public abstract PluginInfo Info { get; }
 
+        public Func<Task> ReConnect;
+
         /// <summary>
         /// 连接状态发生改变
         /// </summary>
