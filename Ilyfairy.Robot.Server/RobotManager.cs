@@ -114,10 +114,7 @@ namespace Ilyfairy.Robot.Manager
                     RequestProc(json);
                     break;
                 default:
-                    return;
-#if DEBUG
-                    throw new Exception($"未知类型: {post_type}");
-#endif
+                    //throw new Exception($"未知类型: {post_type}");
                     break;
             }
         }
@@ -171,6 +168,15 @@ namespace Ilyfairy.Robot.Manager
 
             var messageChunks = MessageChunkProc(json);
             var sender = SenderProc(json);
+
+            foreach (var item in messageChunks)
+            {
+                if (item == null)
+                {
+                    return;
+                }
+                Debug.Assert(item != null);
+            }
 
             if (string.IsNullOrEmpty(sender.CardName))
             {
@@ -327,9 +333,7 @@ namespace Ilyfairy.Robot.Manager
                 switch (code)
                 {
                     case CQCode.none:
-#if DEBUG
-                        throw new Exception("消息异常");
-#endif
+                        //throw new Exception("消息异常");
                         break;
                     case CQCode.face:
                         obj = new FaceChunk(int.Parse(property["id"]));
@@ -408,7 +412,7 @@ namespace Ilyfairy.Robot.Manager
                         {
                             OriginText = originText,
                             Type = code,
-                            Json = property["json"],
+                            Json = property["data"],
                         };
                         break;
                     case CQCode.cardimage:
@@ -420,9 +424,7 @@ namespace Ilyfairy.Robot.Manager
                 }
                 if (obj == null)
                 {
-#if DEBUG
-                    throw new Exception("未知消息类型");
-#endif
+                    //throw new Exception("未知消息类型");
                 }
                 yield return obj;
             }

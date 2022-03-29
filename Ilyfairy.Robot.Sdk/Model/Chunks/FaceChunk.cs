@@ -2,7 +2,7 @@
 {
     public class FaceChunk : MessageChunk
     {
-        public int Face { get; set; }
+        public int Id { get; set; }
         //public FaceChunk()
         //{
 
@@ -12,7 +12,7 @@
         {
             OriginText = $"[CQ:face,id={id}]";
             this.Type = CQCode.face;
-            this.Face = id;
+            this.Id = id;
         }
 
     }
