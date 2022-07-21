@@ -408,7 +408,8 @@ namespace Ilyfairy.Robot.Manager
                         {
                             OriginText = originText,
                             Type = code,
-                            Json = property["json"],
+                            //这里解析json会出错，原因未知
+                            //Json = property["json"],
                         };
                         break;
                     case CQCode.cardimage:
@@ -442,6 +443,8 @@ namespace Ilyfairy.Robot.Manager
                 MessageChunks = messageChunks,
                 Sender = sender,
                 GroupId = groupId,
+                //添加对MsgID的支持
+                Message_id = json.Value<int>("message_id")
             });
         }
         /// <summary>
@@ -455,6 +458,8 @@ namespace Ilyfairy.Robot.Manager
             {
                 MessageChunks = messageChunks,
                 Sender = sender,
+                //添加对MsgID的支持
+                Message_id = json.Value<int>("message_id")
             });
         }
 
