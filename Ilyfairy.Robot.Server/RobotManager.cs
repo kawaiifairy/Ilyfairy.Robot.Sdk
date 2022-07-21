@@ -442,6 +442,8 @@ namespace Ilyfairy.Robot.Manager
                 MessageChunks = messageChunks,
                 Sender = sender,
                 GroupId = groupId,
+                //添加群聊消息的MsgID
+                Message_id = json.Value<int>("message_id")
             });
         }
         /// <summary>
@@ -455,6 +457,8 @@ namespace Ilyfairy.Robot.Manager
             {
                 MessageChunks = messageChunks,
                 Sender = sender,
+                //添加私聊消息的MsgID
+                Message_id = json.Value<int>("message_id")
             });
         }
 
